@@ -17,6 +17,7 @@
     <servlet-name>HelloWorldServlet</servlet-name>
     <url-pattern>/HelloWorldServlet</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>RequestMethodServlet</servlet-name>
     <servlet-class>New.RequestMethodServlet</servlet-class>
@@ -25,6 +26,7 @@
     <servlet-name>RequestMethodServlet</servlet-name>
     <url-pattern>/RequestMethodServlet</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>ConfigInterface</servlet-name>
     <servlet-class>New.ConfigInterface</servlet-class>
@@ -37,6 +39,7 @@
     <servlet-name>ConfigInterface</servlet-name>
     <url-pattern>/ConfigInterface</url-pattern>
   </servlet-mapping>
+  
   <context-param>
     <param-name>companyName</param-name>
     <param-value>APPLE.Inc</param-value>
@@ -45,6 +48,7 @@
     <param-name>address</param-name>
     <param-value>GuangZhou</param-value>
   </context-param>
+  
   <servlet>
     <servlet-name>TestServlet03</servlet-name>
     <servlet-class>New.TestServlet03</servlet-class>
@@ -53,4 +57,5 @@
     <servlet-name>TestServlet03</servlet-name>
     <url-pattern>/TestServlet03</url-pattern>
   </servlet-mapping>
+  
 </web-app>
