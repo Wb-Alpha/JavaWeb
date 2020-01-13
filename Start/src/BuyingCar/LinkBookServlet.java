@@ -22,7 +22,8 @@ public class LinkBookServlet extends HttpServlet {
 		Collection<Book> books = BookDB.getAll();
 		out.print("本站提供的图书有：<br/>");
 		for (Book book : books) {
-			String url = "/Start/PurchaseServlet?id=" + book.getID();
+			String url = "/Start/TestServlet03";
+					//"/Start/PurchaseServlet?id=" + book.getID();
 			out.write(book.getName() + "<a href='" + url + "'>点击购买</a><br/>");
 		}
 	}

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class DefaultServlet
  */
 //»± °¿‡Servlet
-@WebServlet("/")
+//@WebServlet("/")
 public class DefaultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
