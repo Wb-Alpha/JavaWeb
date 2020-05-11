@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CourseMapper">
+	<select id="selectCourseByCno" parameterType="String" resultType="com.po.Course">
+		select * from course where course=#{course};
+	</select>
+	<select id="selectCourseByCname" parameterType="String" resultType="com.po.Course">
+		select * from course where cname like concat('%',#{cname},'%');
+	</select>
+	<insert id="insertCourse" parameterType="com.po.Course">
+		insert into course(cno,cname,period) values(#{cno},#{cname},#{period});
+	</insert>
+	<delete id="deleteCourse" parameterType="String">
+		delete from course where cno=#{cno}
+	</delete>
+	<update id="updateCourse" parameterType="com.po.Course">
+		update course set cno=#{cno},cname=#{cname},period=#{period} where cno=#{cno}
+	</update>
+</mapper>

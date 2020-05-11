@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TeacherMapper">
+	<select id="selectTeacherByTno" parameterType="String" resultType="com.po.Teacher">
+		select * from teacher where tno=#{tno};
+	</select>
+	<select id="selectTeacherByTname" parameterType="String" resultType="com.po.Teacher">
+		select * from teacher where tname like concat('%',#{tname},'%');
+	</select>
+	<insert id="insertTeacher" parameterType="com.po.Teacher">
+		insert into teacher(tno,tname) values(#{tno},#{tname});
+	</insert>
+	<delete id="deleteTeacher" parameterType="String">
+		delete from teacher where tno=#{tno}
+	</delete>
+	<update id="updateTeacher" parameterType="com.po.Teacher">
+		update teacher set tno=#{tno},tname=#{tname} where tno=#{tno}
+	</update>
+</mapper>
