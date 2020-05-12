@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CustomerMapper">
+	<select id="findCustomerByNameAndJobs" parameterType="com.po.Customer" resultType="com.po.Customer">
+		select * from t_customer where 1=1
+		<if test="username != null and username != ''">
+			and username like concat('%', #{username}, '%')
+		</if>
+		<if test="jobs != null and jobs != ''">
+			and jobs=#{jobs}
+		</if>
+	</select>
+	
+	
+	<select id="findCustomerByNameOrJobs" parameterType="com.po.Customer" resultType="com.po.Customer">
+		select * from t_customer where 1=1
+		<choose>
+			<when test="username != null and username != ''">
+				and username like concat('%',#{username},'%')
+			</when>
+			<when test="jobs =! null and jobs != ''">
+				and jobs=#{jobs}
+			</when>
+			<otherwise>
+				and phone is not null
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findCustomerByName" parameterType="String" resultType="com.po.Customer">
+		select * from t_customer where username like '${valur}$'
+	</select>
+	
+	<insert id="addCustomer" parameterType="com.po.Customer">
+		insert into t_customer(username, job, phone) values(${username}, ${job}, ${phone})
+	</insert>
+	
+	<!-- foreach元素的使用  -->
+	<select id="findCustomerByIds" parameterType="List" resultType="com.po.Customer">
+		select * from t_customer where id in
+		<foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+	
+	<!-- set元素  -->
+	<update id="updateCustomer" parameterType="com.po.Customer">
+		update t_customer
+		<set>
+			<if test="username != null and username != ''">
+				username=#{username},
+			</if>
+			<if test="jobs != null and jobs != ''">
+				jobs=#{jobs},
+			</if>
+			<if test="phone != null and phone !=''">
+				phone=#{phone},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteCustomer" parameterType="Integer">
+		delete from t_customer where id=#{id}
+	</delete>
+</mapper> 
