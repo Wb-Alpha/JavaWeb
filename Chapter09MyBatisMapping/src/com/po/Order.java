@@ -1,8 +1,18 @@
 package com.po;
 
+import java.util.List;
+
 public class Order {
 	private Integer id;
 	private String number;
+	private List<Product> productList;
+	
+	public List<Product> getProductList() {
+		return productList;
+	}
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
 	public Integer getId() {
 		return id;
 	}

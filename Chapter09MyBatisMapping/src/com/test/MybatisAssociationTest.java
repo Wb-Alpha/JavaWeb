@@ -3,6 +3,7 @@ package com.test;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import com.po.Order;
 import com.po.Person;
 import com.po.User;
 import com.tools.MybatisUtils;
@@ -34,6 +35,14 @@ public class MybatisAssociationTest {
 		SqlSession session = MybatisUtils.getSession();
 		User user = session.selectOne("com.mapper."+"UserMapper.findUserWithPrders", 1);
 		System.out.println(user);
+		session.close();
+	}
+	
+	@Test
+	public void findOrdersTest() {
+		SqlSession session = MybatisUtils.getSession();
+		Order order = session.selectOne("com.mapper."+"OrdersMapper.findOrderWithProduct");
+		System.out.println(order);
 		session.close();
 	}
 }
