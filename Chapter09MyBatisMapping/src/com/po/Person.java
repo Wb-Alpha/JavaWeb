@@ -36,5 +36,8 @@ public class Person {
 	public void setCard(IdCard card) {
 		this.card = card;
 	}
-	
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ",name=" + name + ",age="+age+ "sex=" + sex + "card="+card;
+	}
 }

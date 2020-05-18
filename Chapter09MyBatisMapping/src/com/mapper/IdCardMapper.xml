@@ -5,5 +5,4 @@
 	<select id="findCodeById" parameterType="Integer" resultType="IdCard">
 		select * from tb_idcard where id=#{id}
 	</select>
-
 </mapper>

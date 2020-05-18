@@ -16,4 +16,8 @@ public class IdCard {
 		this.code = code;
 	}
 	
+	@Override
+	public String toString() {
+		return "IdCard {id=" + id +", code="+ code + "]";
+	}
 }
