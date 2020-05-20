@@ -16,10 +16,7 @@ public class TeacherDaoImpl implements TeacherDao{
 	
 	@Override
 	public Course selectTeacherById(int tno) {
-		// TODO Auto-generated method stub
-		String sql = "select * from teacher where cno=?";
-		RowMapper rowMapper = new BeanPropertyRowMapper<Teacher>();
-		return this.jdbcTemplate.queryForObject(sql,rowMapper,tno);
+		return null;
 	}
 
 	@Override

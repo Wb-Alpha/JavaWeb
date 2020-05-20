@@ -17,4 +17,38 @@
 	<update id="updateCourse" parameterType="com.po.Course">
 		update course set cno=#{cno},cname=#{cname},period=#{period} where cno=#{cno}
 	</update>
+	
+	<select id="selectCourseByList" parameterType="List" resultType="com.po.Course">
+		select * from course where cname in
+		<foreach item="cname" index="index" collection="list" open="(" separator="," close=")">
+			#{cname}
+		</foreach>
+	</select>
+	
+	<!--  
+	<select id="selectCourseBookByCno" parameterType="Integer" resultMap="courseBookMap">
+		select * from course where cno=#{cno};
+	</select>
+	<resultMap type="Course" id="courseBookMap">
+		<id property="cno" column="cno"/>
+		<result property="cname" column="cname"/>
+		<result property="period" column="period"/>
+		<association property="book" column="bookid" javaType="Book" select="com.mapper.BookMapper.selectBookById"/>
+	</resultMap>-->
+	
+	
+	<select id="selectCourseBookByCno" parameterType="Integer" resultMap="courseBookMap">
+		select c.*,b.* from course c,book b where c.bookid=b.id and cno=#{cno}
+	</select>
+	<resultMap type="Course" id="courseBookMap">
+		<id property="cno" column="cno"/>
+		<result property="cname" column="cname"/>
+		<result property="period" column="period"/>
+		<association property="book" javaType="Book">
+			<id property="id" column="bookid"/>
+			<result property="bname" column="bname"/>
+			<result property="price" column="price"/>
+			<result property="pub" column="pub"/>
+		</association>
+	</resultMap>
 </mapper>

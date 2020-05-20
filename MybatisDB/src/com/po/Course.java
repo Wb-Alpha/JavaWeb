@@ -4,6 +4,13 @@ public class Course {
 	int cno;
 	String cname;
 	int period;
+	private Book book;
+	public Book getBook() {
+		return book;
+	}
+	public void setBook(Book book) {
+		this.book = book;
+	}
 	public int getCno() {
 		return cno;
 	}
@@ -23,4 +30,7 @@ public class Course {
 		this.period = period;
 	}
 	
+	public String toString() {
+		return cno + " | " + cname + " | " + period + " | " + book;
+	}
 }

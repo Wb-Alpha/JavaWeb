@@ -17,4 +17,31 @@
 	<update id="updateStudent" parameterType="com.po.Student">
 		update stu set sname=#{sname},ssex=#{ssex},snative=#{snative},mno=#{mno} where sno=#{sno}
 	</update>
+	
+	
+	
+	<!-- 实验5分界线 -->
+	<select id="selectStudent" parameterType="com.po.Student" resultType="com.po.Student">
+		<bind name="search_sname_key" value="'%'+sname+'%'"/>
+		select * from stu
+		<if test="sno!=''">
+			and sno=#{sno}
+		</if>
+		<if test="sno=null or sno=''">
+			and sname like #{search_sname_key}
+		</if>
+	</select>
+	
+	<select id="selectStudentByList" parameterType="List" resultType="com.po.Student">
+		select * from stu where sname in
+		<foreach item="sname" index="index" collection="list" open="(" separator="," close=")">
+			#{sname}
+		</foreach>
+	</select>
 </mapper>
+
+
+
+
+
+
