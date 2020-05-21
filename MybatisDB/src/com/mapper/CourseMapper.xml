@@ -51,4 +51,14 @@
 			<result property="pub" column="pub"/>
 		</association>
 	</resultMap>
+	
+	<select id="selectCourseStudentsByCno" parameterType="Integer" resultMap="courseStudentMap">
+		select * from course where cno=#{cno};
+	</select>
+	<resultMap type="Course" id="courseStudentMap">
+		<id property="cno" column="cno"/>
+		<result property="cname" column="cname"/>
+		<result property="period" column="period"/>
+		<collection property="studentList" column="cno" ofType="com.po.Student" select="com.mapper.StudentMapper.selectStudentByCno"/>
+	</resultMap>
 </mapper>

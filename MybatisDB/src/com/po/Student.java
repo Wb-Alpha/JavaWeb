@@ -1,12 +1,21 @@
 package com.po;
 
+import java.util.List;
+
 public class Student {
 	String sno;
 	String sname;
 	String ssex;
 	String snative;
 	int mno;
-	
+	private List<Course> courseList;
+
+	public List<Course> getCourseList() {
+		return courseList;
+	}
+	public void setCourseList(List<Course> courseList) {
+		this.courseList = courseList;
+	}
 	public String getSno() {
 		return sno;
 	}

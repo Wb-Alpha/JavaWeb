@@ -1,10 +1,20 @@
 package com.po;
 
+import java.util.List;
+
 public class Course {
 	int cno;
 	String cname;
 	int period;
 	private Book book;
+	private List<Student> studentList;
+	
+	public List<Student> getStudentList() {
+		return studentList;
+	}
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
+	}
 	public Book getBook() {
 		return book;
 	}

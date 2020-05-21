@@ -1,15 +1,15 @@
 package com.po;
 
 public class Student {
-	String sid;
+	int sid;
 	String sname;
 	int age;
 	float height;
-	public String getSid() {
+	public int getSid() {
 		return sid;
 	}
-	public void setSid(String sid) {
-		this.sid = sid;
+	public void setSid(int i) {
+		this.sid = i;
 	}
 	public String getSname() {
 		return sname;
@@ -29,4 +29,5 @@ public class Student {
 	public void setHeight(float height) {
 		this.height = height;
 	}
+
 }

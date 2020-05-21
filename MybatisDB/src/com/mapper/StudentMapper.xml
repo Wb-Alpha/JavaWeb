@@ -38,6 +38,47 @@
 			#{sname}
 		</foreach>
 	</select>
+	
+	<select id="selectStudentScoresBySno" parameterType="String" resultMap="studentScoreMap">
+		select * from stu where sno=#{sno};
+	</select>
+	<resultMap type="Student" id="studentScoreMap">
+		<id property="sno" column="sno"/>
+		<result property="sname" column="sname"/>
+		<result property="ssex" column="ssex"/>
+		<result property="snative" column="snative"/>
+		<result property="mno" column="mno"/>
+		<collection property="scoreList" column="sno" ofType="Score" select="com.mapper.ScoreMapper.selectScoreBySno">
+			<id property="sno" column="sno"/>
+			<result property="cno" column="cno"/>
+			<result property="tno" column="tno"/>
+			<result property="participation" column="ps"/>
+			<result property="sfinal" column="zp"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectStudentByCno" parameterType="Integer" resultType="com.po.Student">
+		select * from stu where sno in(
+			select sno from sc where cno=#{cno}
+		)
+	</select>
+	
+	<select id="selectStudentCourseBySno" parameterType="String" resultMap="StudentCourseMap">
+		select s.*,c.* from stu s,course c,sc
+		where s.sno=sc.sno and c.cno=sc.cno and s.sno=#{sno}
+	</select>
+	<resultMap type="Student" id="StudentCourseMap">
+		<id property="sno" column="sno"/>
+		<result property="sname" column="sname"/>
+		<result property="ssex" column="ssex"/>
+		<result property="snative" column="snative"/>
+		<result property="mno" column="mno"/>
+		<collection property="courseList" ofType="Course">
+			<id property="cno" column="cno"/>
+			<result property="cname" column="cname"/>
+			<result property="period" column="period"/>
+		</collection>
+	</resultMap>
 </mapper>
 
 
