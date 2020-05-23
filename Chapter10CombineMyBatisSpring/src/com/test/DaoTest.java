@@ -14,6 +14,6 @@ public class DaoTest {
 		//根据容器中的Bean的ID来获取指定的Bean
 		CustomerDao customerDao = (CustomerDao) act.getBean("customerDao");
 		Customer customer = customerDao.findCustomerById(1);
-		System.out.println(customer);
+		System.out.println(customer);	
 	}
 }
