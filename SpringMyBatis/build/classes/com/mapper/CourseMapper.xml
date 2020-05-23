@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CourseMapper">
+	<select id="selectCourseByCno" parameterType="Integer" resultType="Course">
+		select * from course where cno=#{value};
+	</select>
+	
+	<select id="selectCourseByCname" parameterType="String" resultType="List">
+		select * from course where cname like '${value}$';
+	</select>
+	
+	<delete id="deleteCourseByCno" parameterType="String">
+		delete from course where cno=#{cno};
+	</delete>
+	
+	<update id="updateCourseByCno" parameterType="com.mapper.CourseMapper">
+		update course set 
+		cname=#{cname}, peroid=#{peroid}
+		where cno=#{cno}
+	</update>
+	
+	<insert id="insertCourse" parameterType="com.mapper.CourseMapper">
+		insert course into values (#{cno}, #{cname}, #{period});
+	</insert>
+</mapper> 

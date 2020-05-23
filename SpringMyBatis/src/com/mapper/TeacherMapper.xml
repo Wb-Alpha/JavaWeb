@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TeacherMapper">
+	<select id="selectTeacherByTno" parameterType="Integer" resultType="com.po.Teacher">
+		select * from teacher where tno=#{value};
+	</select>
+	
+	<select id="selectTeacherByTname" parameterType="String" resultType="List">
+		select * from teacher where tname like "${value}$";
+	</select>
+	
+	<update id="updateTeacher" parameterType="com.po.Teacher">
+		update teacher set 
+		tname=#{tname}, tsex=#{tsex}, snative=#{snative} 
+		where tno=#{tno}
+	</update>
+	
+	<insert id="insertTeacher" parameterType="com.po.Teacher">
+		insert teacher into values (#{tno}, #{tname}, #{tsex}, #{tel});
+	</insert>
+	
+	<delete id="deleteTeacherById" parameterType="String">
+		delete from teacher where tno=#{tno};
+	</delete>
+	
+</mapper>
