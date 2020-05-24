@@ -5,15 +5,23 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.dao.CustomerDao;
+import com.mapper.CustomerMapper;
 import com.po.Customer;
 
 public class DaoTest {
 	@Test
-	public void findCustomerByIdTest() {
+	public void findCustomerByIdDaoTest() {
 		ApplicationContext act = new ClassPathXmlApplicationContext("applicationContext.xml");
-		//根据容器中的Bean的ID来获取指定的Bean
-		CustomerDao customerDao = (CustomerDao) act.getBean("customerDao");
+		CustomerDao customerDao  =(CustomerDao) act.getBean("customerDao");
 		Customer customer = customerDao.findCustomerById(1);
-		System.out.println(customer);	
+		System.out.println(customer);
+	}
+	
+	
+	@Test
+	public void findCustomerByIdMapperTest() {
+		ApplicationContext act = new ClassPathXmlApplicationContext("applicationContext.xml");
+		CustomerMapper customerMapper = act.getBean(CustomerMapper.class);
+		Customer customer = customerMapper.findCustomerById(1);
 	}
 }

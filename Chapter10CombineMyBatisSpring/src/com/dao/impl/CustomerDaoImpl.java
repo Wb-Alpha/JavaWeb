@@ -10,7 +10,7 @@ public class CustomerDaoImpl extends SqlSessionDaoSupport implements CustomerDao
 	@Override
 	public Customer findCustomerById(Integer id) {
 		// TODO Auto-generated method stub
-		return this.getSqlSession().selectOne("com.po"+".CustomerMapper.findCustomerById", id);
+		return this.getSqlSession().selectOne("com.po"+".CustomerMapper.findCustomerById");
 	}
 
 }

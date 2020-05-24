@@ -1,52 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:tx="http://www.springframework.org/schema/tx" 
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
-    http://www.springframework.org/schema/context 
-    http://www.springframework.org/schema/context/spring-context-4.3.xsd
-    http://www.springframework.org/schema/aop 
-    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-    
-    <context:property-placeholder location="classpath:db.properties"/>
-    
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-    	<property name="driverClassName" value="${jdbc.driver}$"/>
-    	<property name="url" value="${jdbc.url}"/>
-    	<property name="username" value="${jdbc.username}"/>
-    	<property name="password" value="${jdbc.password}"/>
-    	<property name="maxTotal" value="${jdbc.maxTotal}" />
-    	<property name="maxIdle" value="${jdbc.maxIdle}" />
-    	<property name="initialSize" value="${jdbc.initialSize}"/>
-    </bean>
-    
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    	<property name="dataSource" ref="dataSource"/>
-    </bean>
-    
-    <!-- 开启事务注解  -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    
-    <!-- 配置MyBatis工厂  -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-    	<property name="dataSource" ref="dataSource"/>
-    	<property name="configLocation" value="classpath:mybatis-config.xml"/>
-    </bean>
-    
-    <!-- 实例化Dao -->
-    <bean id="customerDao" class="com.dao.impl.CustomerDaoImple">
-    	<!-- 注入SqlSessionFactory 对象实例 -->
-    	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
-    
-    <!-- Mapper代理开发（基于MapperFactoryBean  -->
-    <bean id="customerMapper">
-    	<property name="mapperInterface" value="com.mapper.CustomerMapper"/>
-    	<property name="sqlSessioFactory" ref="sqlSessionFactory"/>
-    </bean>
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd"> 
+
+	<context:property-placeholder location="classpath:db.properties"/>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<!-- 数据库驱动  -->
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<!-- 连接数据库url -->
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<property name="maxTotal" value="${jdbc.maxTotal}"/>
+		<property name="maxIdle" value="${jdbc.maxIdle}"/>
+		<property name="initialSize" value="${jdbc.initialSize}"/>
+	</bean>
+	
+	<!-- 事务管理器，依赖于数据源  -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	
+	<!-- 配置MyBatis工厂  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 注入数据源  -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 指定核心配置文件位置 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+	</bean>
+	
+	<!-- 实例化Dao -->
+	<bean id="customerDao" class="com.dao.impl.CustomerDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- Mapper代理开发（基于MapperFactoryBean）  -->
+	<bean id="customerMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterfece" value="com.mapper.CustomerMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
 </beans>

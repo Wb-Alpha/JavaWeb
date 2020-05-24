@@ -29,4 +29,9 @@ public class Customer {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	
+	public String toString() {
+		return "id="+id+"|username="+username+"|jobs="+jobs+"|phone="+phone;
+	}
 }

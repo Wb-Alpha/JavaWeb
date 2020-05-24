@@ -6,8 +6,8 @@
  	<typeAliases>
  		<package name="com.po"/>
  	</typeAliases>
+ 	
  	<mappers>
  		<mapper resource="com/po/CustomerMapper.xml"/>
- 		<!--  <mapper resource="com/mapper/CustomerMapper.xml"/>-->
  	</mappers>
  </configuration>
