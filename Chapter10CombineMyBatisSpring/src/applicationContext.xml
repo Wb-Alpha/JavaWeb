@@ -48,7 +48,7 @@
 	
 	<!-- Mapper代理开发（基于MapperFactoryBean）  -->
 	<bean id="customerMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterfece" value="com.mapper.CustomerMapper"/>
+		<property name="mapperInterface" value="com.mapper.CustomerMapper"/>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 </beans>
