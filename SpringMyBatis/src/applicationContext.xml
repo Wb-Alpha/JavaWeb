@@ -22,6 +22,13 @@
 		<property name="maxIdle" value="${jdbc.maxIdle}" />
 		<property name="initialSize" value="${jdbc.initialSize}" />
 	</bean>
+	<!-- Mapper代理开发(基于MapperScannerConfigurer) -->
+	<bean class="org.mybaits.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mapper"/>
+	</bean>
+</beans>
+
+	<!--  
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>	
@@ -41,5 +48,4 @@
     
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.mapper"/>
-	</bean>
-</beans>
+	</bean>-->

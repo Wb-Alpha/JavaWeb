@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmls:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http;//www.springframework.org/schema/mvc
+	http;//www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 	http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
     http://www.springframework.org/schema/context
@@ -17,5 +20,24 @@
     		<property name="prefix" value="/WEB-INF/jsp/"/>
     		<!-- 设置后缀  -->
     		<property name="suffix" value=".jsp"/>
+    	</bean>
+    	<!-- 显示的装配自定义类型转换器  -->
+    	<mvc:annotation-driven conversion-service="conversionService"/>
+    	<!-- 自定义类型转换器配置 -->
+    	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+    		<property name="conversion">
+    			<set>
+    				<bean class="com.convert.DateConverter"/>
+    			</set>
+    		</property>
+    	</bean>
+    	
+    	<!-- 自定义类型格式化转换器配置  -->
+    	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+    		<property name="formatters"> 
+    			<set>
+    				<bean class="com.convert.DateFormatter"/>
+    			</set>
+    		</property>
     	</bean>
 </beans>

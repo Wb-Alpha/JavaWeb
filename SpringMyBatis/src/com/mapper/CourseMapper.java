@@ -8,4 +8,5 @@ public interface CourseMapper {
 	void insertCourse(Course course);
 	void deleteCourseByCno(int cno);
 	void updateCourse(Course course);
+	
 }
