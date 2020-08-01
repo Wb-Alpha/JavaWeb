@@ -28,8 +28,13 @@
 		</choose>
 	</select>
 
-	<select id="findCustomerByName" parameterType="String" resultType="com.po.Customer">
-		select * from t_customer where username like '${valur}$'
+    <!-- <bind>元素的使用：根据客户名查询客户信息 -->
+	<select id="findCustomerByName" parameterType="com.po.Customer" resultType="com.po.Customer">
+		<!-- _parameter.getUsername()也可以直接写成传入字段名，即username -->
+		<bind name="pattern_username" value="'%'+_parameterType.getUsername()+'%'"/>
+		select * from t_customer
+		where
+		username like #{pattern_username}
 	</select>
 	
 	<insert id="addCustomer" parameterType="com.po.Customer">

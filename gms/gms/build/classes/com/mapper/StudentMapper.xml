@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Mapper代理开发规范
+	Mapper接口的名称和对应的Mapper.xml映射文件的名称必须一致
+	Mapper.xml文件的namespace与Mapper接口的类路径相同(即接口文件和映射文件需要放在同一个包中)
+	Mapper接口中的方法名和Mapper.xml中定义的每个执行语句的id相同
+	Mapper接口中方法的输入参数类型和Mapper.xml中定义的每个sql的parameterType类型相同
+	Mapper接口中方法的输入参数类型和Mapper.xml中定义的每个sql的resultType类型相同
+
+ -->
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.mapper.StudentMapper">
+	<!-- 按学号查询学生信息 -->
+	<select id="selectStudentBySno" parameterType="String" resultType="student">
+		select * from stu where sno=#{sno};
+	</select>
+	<!-- 按姓名查询学生信息 -->
+	<select id="selectStudentBySname" parameterType="String" resultType="student">
+		<bind name="sname" value="'%'+sname+'%'"/>
+		select * from  stu
+		<where>
+			<if test="sname!=null and sname!=''">
+				and sname like #{sname}
+			</if>
+		</where>
+	</select>
+	<!-- 所有学生信息 -->
+	<select id="selectStudents" resultType="student">
+		select * from stu;
+	</select>
+	<insert id="insertStudent" parameterType="student">
+		insert into stu(sno,sname,ssex,snative,mno)
+		values(#{sno},#{sname},#{ssex},#{snative},#{mno});
+	</insert>
+	<delete id="deleteStudentBySno" parameterType="String">
+		delete from stu where sno=#{sno};
+	</delete>
+	<update id="updateStudent" parameterType="student">
+		update stu
+		<set>
+			<if test="sname!=null and sname!=''">
+				sname=#{sname},
+			</if>
+			<if test="ssex!=null and ssex!=''">
+				ssex=#{ssex},
+			</if>
+			<if test="snative!=null and snative!=''">
+				snative=#{snative},
+			</if>
+			<if test="mno!=null and mno!=''">
+				mno=#{mno},
+			</if>
+		</set>
+		where sno=#{sno};
+	</update>
+</mapper>

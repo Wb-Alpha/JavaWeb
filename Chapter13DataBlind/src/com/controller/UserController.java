@@ -6,16 +6,23 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.po.User;
 import com.vo.UserVO;
 
 @Controller
 public class UserController {
-	@RequestMapping("/selectUser")
-	public String selectUser(Integer id) {
+	/*@RequestMapping("/selectUser")
+	public String selectUser(HttpServletRequest request) {
+		String id = request.getParameter("id");
 		System.out.println("id="+id);
 		return "success";
+	}*/
+	@RequestMapping("/selectUser")
+	public String selectUser(@RequestParam(value="user_id")Integer id) {
+	    System.out.println("id="+id);
+	    return "success";
 	}
 	
 	@RequestMapping("/toRegister")

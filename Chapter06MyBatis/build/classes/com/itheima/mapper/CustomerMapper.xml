@@ -14,7 +14,7 @@
 		insert into t_customer(username, job, phone) values(${username}, ${job}, ${phone})
 	</insert>
 	
-	<update id="deleteCustomer" parameterType="com.itheima.po.Customer">
+	<update id="updateCustomer" parameterType="com.itheima.po.Customer">
 		update t_customer set
 		username=#{username},jobs=#{jobs}, phone=#{phone}
 		where id=#{id}

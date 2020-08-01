@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.mapper.CourseMapper">
+	<!-- 按课程号查询课程信息 -->
+	<select id="selectCourseByCno" parameterType="Integer" resultType="course">
+		select * from course where cno=#{cno};
+	</select>
+	<!-- 按课程名查询课程信息 -->
+	<select id="selectCourseByCname" parameterType="String" resultType="course">
+		<bind name="sname" value="'%'+cname+'%'"/>
+		select * from  course
+		<where>
+			<if test="cname!=null and cname!=''">
+				and cname like #{cname}
+			</if>
+		</where>
+	</select>
+	<!-- 所有课程信息 -->
+	<select id="selectCourses" resultType="course">
+		select * from course;
+	</select>
+	<insert id="insertCourse" parameterType="course">
+		insert into course(cno,cname,period)
+		values(#{cno},#{cname},#{period});
+	</insert>
+	<delete id="deleteCourseByCno" parameterType="course">
+		delete from course where cno=#{cno};
+	</delete>
+	<update id="updateCourse" parameterType="course">
+		update course
+		<set>
+			<if test="cname!=null and cname!=''">
+				cname=#{cname},
+			</if>
+			<if test="period!=null and period!=''">
+				period=#{period},
+			</if>
+		</set>
+		where cno=#{cno};
+	</update>
+</mapper>

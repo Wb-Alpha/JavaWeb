@@ -1,4 +1,5 @@
 package com.controller;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ public class ArithmeticController extends HttpServlet {
 		double num1 = 0., num2 = 0.;
 		String str = request.getParameter("num1");
 		if (str != null)
-			num1 = Double.parseDouble(str);
+		    num1 = Double.parseDouble(str);
 		str = request.getParameter("num2");
 		if (str != null)
 			num2 = Double.parseDouble(str);

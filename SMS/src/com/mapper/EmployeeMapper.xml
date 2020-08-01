@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.EmployeeMapper">
+
+	<select id="selectEmployeeByEno" parameterType="String" resultType="Employee">
+		select * from employee where eno=#{eno};
+	</select>
+
+	<select id="selectEmployeeByEname" parameterType="String" resultType="Employee">
+		<bind name="ename" value="'%'+ename+'%'" />
+		select * from employee
+		<where>
+			<if test="ename!=null and ename!=''">
+				and ename like #{ename}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectEmployee" resultType="Employee">
+		select * from employee;
+	</select>
+	
+	<insert id="insertEmployee" parameterType="Employee">
+		insert into employee 
+		values(#{eno},#{ename},#{epos},#{esal},#{ebase_sal},#{emar_sal},#{esubsidy});
+	</insert>
+	
+	<delete id="deleteEmployeeByEno" parameterType="String">
+		delete from employee where eno=#{eno};
+	</delete>
+	
+	<update id="updateEmployee" parameterType="Employee">
+		update employee
+	 	<set>
+		  <if test="ename!=null and ename!=''">
+		  	ename=#{ename},
+		  </if>
+		  <if test="epos!=0">
+		  	epos=#{epos},
+		  </if>
+		  <if test="esal!=0">
+		  	esal=#{esal},
+		  </if>
+		  <if test="ebase_sal!=0">
+		  	ebase_sal=#{ebase_sal},
+		  </if>
+		  <if test="esal!=0">
+		  	emer_sal=#{emer_sal},
+		  </if>
+		  <if test="esubsidy!=0">
+		  	esubsidy=#{esubsidy},
+		  </if>
+		</set>
+		where sno=#{sno};
+	</update>
+	
+</mapper>

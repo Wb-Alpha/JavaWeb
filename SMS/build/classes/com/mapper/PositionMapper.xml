@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.mapper.PositionMapper">
+	<!-- 按职位号查询课程信息 -->
+	<select id="selectPositionBySno" parameterType="Integer" resultType="Position">
+		select * from pos where pno=#{pno};
+	</select>
+	
+	<!-- 按职位名查询职位信息 -->
+	<select id="selectPositionByPname" parameterType="String" resultType="Position">
+		<bind name="pname" value="'%'+pname+'%'"/>
+		select * from pos
+		<where>
+			<if test="pname!=null and pname!=''">
+				and pname like #{pname}
+			</if>
+		</where>
+	</select>
+	
+	<update id="initEmployeePosition" parameterType="Integer">
+		update employee set epos=000001 where epos=#{pno};	
+	</update>
+	
+	<!-- 一对多地查询职位下有什么员工 -->
+	<select id="findPositionWithEmployee" parameterType="Integer" resultMap="PositionWithEmployeeResoult">
+		SELECT e.*, p.pname
+		FROM employee e, pos p
+		WHERE e.pno = p.pno
+		and p.pno = #{pno}
+	</select>
+	<resultMap type="Position" id="PositionWithEmployeeResoult">
+		<id property="pno" column="pno"/>
+		<result property="pname" column="pname"/>
+		<result property="plevel" column="plevel"/>
+		<collection property="empList" ofType="Employee">
+			<id property="eno" column="eno"/>
+			<result property="ename" column="ename"/>
+		</collection>
+	</resultMap>
+		
+	<!-- 所有职位信息 -->
+	<select id="selectAllPositions" resultType="Position">
+		select * from pos;
+	</select>
+	
+	<insert id="insertPosition" parameterType="Position">
+		insert into pos(pno,pname,plevel)
+		values(#{pno},#{pname},#{plevel});
+	</insert>
+	
+	<delete id="deletePosition" parameterType="Position">
+		delete from pos where pno=#{pno};
+	</delete>
+	
+	<update id="updatePosition" parameterType="Position">
+		update pos
+		<set>
+			<if test="pname!=null and pname!=''">
+				pname=#{pname},
+			</if>
+			<if test="plevel!=null and plevel!=''">
+				plevel=#{plevel},
+			</if>
+		</set>
+		where pno=#{pno};
+	</update>
+</mapper>

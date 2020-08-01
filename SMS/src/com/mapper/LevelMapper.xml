@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.mapper.LevelMapper">
+	<select id="selectLevelByLno" parameterType="Integer" resultType="Level">
+		select * from level where lno=#{lno};
+	</select>
+
+	<select id="selectAllLevel" resultType="Level">
+		select * from level;
+	</select>
+		
+	<select id="selectLevelByLname" parameterType="String" resultType="Level">
+		<bind name="lname" value="'%'+lname+'%'"/>
+		select * from level
+		<where>
+			<if test="lname!=null and lname!=''">
+				and lname like #{lname}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertLevel" parameterType="Level">
+		insert into level(lno,lname,base_sal)
+		values(#{lno},#{lname},#{base_sal});
+	</insert>
+	
+	<update id="initPositionLevel" parameterType="Integer">
+		update pos set level=0 where level=#{lno};	
+	</update>
+	
+	<delete id="deleteLevel" parameterType="Integer">
+		delete from level where lno=#{lno};
+	</delete>
+	
+	<update id="updateLevel" parameterType="Level">
+		update level
+		<set>
+			<if test="lname!=null and lname!=''">
+				lname=#{lname},
+			</if>
+			<if test="base_sal!=0 and base_sal!=''">
+				base_sal=#{base_sal},
+			</if>
+		</set>
+		where lno=#{lno};
+	</update>
+	
+	<select id="findLevelWithPosition" parameterType="Integer" resultMap="LevelWithPositionResoult">
+		SELECT p.*,l.lno,l.lname
+		FROM pos p, level l
+		WHERE p.level = l.lno
+		and l.lno=#{lno};
+	</select>
+	<resultMap type="Level" id="LevelWithPositionResoult">
+		<id property="lno" column="pno"/>
+		<result property="lname" column="lname"/>
+		<collection property="posList" ofType="Position">
+			<id property="pno" column="pno"/>
+			<result property="pname" column="pname"/>
+		</collection>
+	</resultMap>
+	
+</mapper>
