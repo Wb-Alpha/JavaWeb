@@ -27,13 +27,24 @@
     <tr>
       <td width="116" height="30" align="right" valign="middle">绩效工资：</td>
       <td width="378" align="left" valign="middle">
-      <input type="text" name="emer_pos" id="emer_pos" /></td>
+      <input type="text" name="emer_sal" id="emer_sal" /></td>
     </tr>
     <tr>
       <td width="116" height="30" align="right" valign="middle">津贴：</td>
       <td width="378" align="left" valign="middle">
-      <input type="text" name="emer_pos" id="emer_pos" /></td>
+      <input type="text" name="esubsidy" id="esubsidy" /></td>
     </tr>
+	<tr>
+		<td>用户身份</td>
+		<td>
+			<select name="identify">
+				<option value="admin">管理员</option>
+				<option value="HR">人力资源部</option>
+				<option value="FM">财务部</option>
+				<option value="normal">普通用户</option>
+			</select>
+		</td>
+	</tr>
     <tr>
       <td height="30" align="right" valign="middle">&nbsp;</td>
       <td align="left" valign="middle"><input type="submit" name="button" id="button" value="提交" />

@@ -27,10 +27,35 @@
 			</tr>
 			<tr>
 				<td width="116" height="30" align="right"
-				valign="middle">薪资:</td>
+				valign="middle">职位:</td>
 				<td width="378" align="left" valign="middle">
-				<input type="text" name="esal" id="esal" 
-				value="${employee.esal }"></td>
+				<input type="text" name="epos" readonly="readonly" id="epos" 
+				value="${employee.epos }"></td>
+			</tr>
+			<tr>
+				<td width="116" height="30" align="right"
+				valign="middle">绩效工资:</td>
+				<td width="378" align="left" valign="middle">
+				<input type="text" name="emer_sal" readonly="readonly" id="emer_sal" 
+				value="${employee.emer_sal }"></td>
+			</tr>
+			<tr>
+				<td width="116" height="30" align="right"
+				valign="middle">津贴:</td>
+				<td width="378" align="left" valign="middle">
+				<input type="text" name="esubsidy" id="esubsidy" 
+				value="${employee.esubsidy }"></td>
+			</tr>
+			<tr>
+				<td>用户身份</td>
+				<td>
+					<select name="identify">
+						<option value="admin">管理员</option>
+						<option value="HR">人力资源部</option>
+						<option value="FM">财务部</option>
+						<option value="normal">普通用户</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td height="30" align="right"
@@ -39,8 +64,7 @@
 				<input type="submit" name="button" value="提交">
 				<input type="reset" name="button2" id="button2"
 				value="重置"></td>
-			</tr>
-			
+			</tr>	
 		</table>
 	</form>
 </body>

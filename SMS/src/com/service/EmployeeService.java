@@ -8,7 +8,7 @@ public interface EmployeeService {
 	List<Employee> findAllEmployee();
 	List<Employee> findEmployeeByName(String ename);
 	Employee findEmployeeByEno(String eno);
-	void addEmployee(Employee employee);
+	void addEmployee(Employee employee, String identify);
 	void deleteEmployee(String[] enoArray);
-	void updateEmployee(Employee employee);
+	void updateEmployee(Employee employee, String identify);
 }

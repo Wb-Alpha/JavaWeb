@@ -4,7 +4,7 @@
 <!-- namespace表示命名空间 -->
 <mapper namespace="com.mapper.PositionMapper">
 	<!-- 按职位号查询课程信息 -->
-	<select id="selectPositionBySno" parameterType="Integer" resultType="Position">
+	<select id="selectPositionByPno" parameterType="Integer" resultType="Position">
 		select * from pos where pno=#{pno};
 	</select>
 	

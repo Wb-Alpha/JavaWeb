@@ -3,27 +3,55 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace表示命名空间 -->
 <mapper namespace="com.mapper.UserMapper">
-	<select id="selectUserById" parameterType="String" resultType="User">
+    <resultMap id="UserMap" type="User">
+        <!--column数据库中的字段，property实体类中的属性-->
+        <result column="user_id" property="id"/>
+        <result column="user_name" property="username"/>
+        <result column="user_password" property="password"/>
+        <result column="identify" property="identify"/>
+    </resultMap>
+	
+	<select id="selectAllUsers" resultMap="UserMap">
+    	select * from user;
+    </select>
+    
+    <select id="selectUserByName" parameterType="String" resultType="User">
+		<bind name="username" value="'%'+username+'%'" />
+		select * from user
+		<where>
+			<if test="username!=null and username!=''">
+				and user_username like #{username}
+			</if>
+		</where>
+	</select>
+    
+	<select id="selectUserById" parameterType="String" resultMap="UserMap">
 		select * from user where user_id=#{id};
 	</select>
 	
 	<insert id="insertUser" parameterType="User">
 		insert into user
-		values(#{id},#{username},#{password});
+		values(#{id},#{username},#{password},#{identify});
 	</insert>
 	
 	
 	<update id="updateUser" parameterType="User">
 		update user
 		<set>
-			<if test="lname!=null and lname!=''">
-				username=#{user_name},
+			<if test="username!=null and username!=''">
+				user_name=#{username},
 			</if>
-			<if test="password=0 and base_sal!=''">
-				password=#{user_password},
+			<if test="password!=null and password!=''">
+				user_password=#{password},
+			</if>
+			<if test="identify!=null and identify!=''">
+				identify=#{identify},
 			</if>
 		</set>
-		where id=#{id};
+		where user_id=#{id};
 	</update>
 	
+	<delete id="deleteUserById" parameterType="String">
+		delete from user where user_id=#{id};
+	</delete>
 </mapper>

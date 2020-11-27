@@ -35,7 +35,9 @@ public class LevelController {
 	
 	@RequestMapping(value="/leveldelete",method=RequestMethod.POST)
 	public String levelDelete(Integer[] lnoArray) {
-		levelService.deleteLevel(lnoArray);
+		if (lnoArray != null) {
+			levelService.deleteLevel(lnoArray);
+		}
 		return "redirect:levellist";
 	}
 	

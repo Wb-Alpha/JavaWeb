@@ -26,14 +26,16 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value="/employeeinsert", method=RequestMethod.POST)
-	public String employeeInsert(Employee employee){
-		employeeService.addEmployee(employee);
+	public String employeeInsert(Employee employee, String identify){
+		employeeService.addEmployee(employee, identify);
 		return "redirect:employeelist";
 	}
 	
 	@RequestMapping(value="/employeedelete", method=RequestMethod.POST)
 	public String employeeDelete(String[] enoArray) {
-		employeeService.deleteEmployee(enoArray);
+		if (enoArray != null) {
+			employeeService.deleteEmployee(enoArray);	
+		}
 		return "redirect:employeelist";
 	}
 	
@@ -44,8 +46,8 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value="/employeeupdate", method=RequestMethod.POST)
-	public String employeeUpdate(Employee employee) {
-		employeeService.updateEmployee(employee);
+	public String employeeUpdate(Employee employee,String identify) {
+		employeeService.updateEmployee(employee, identify);
 		return "redirect:employeelist";
 	}
 	
@@ -56,8 +58,8 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value="/employeesearch", method=RequestMethod.POST)
-	public String employeeSearch(Employee employee) {
-		employeeService.updateEmployee(employee);
+	public String employeeSearch(Employee employee,String identify) {
+		employeeService.updateEmployee(employee, identify);
 		return "redirect:employeelist";
 	}
 }

@@ -16,8 +16,7 @@
 	<center>员工信息</center>
 	<form action="employeedelete" id="form1" name="form1" method="post">
 		<table align="center" width="500" border="1"
-		cellspacing="0" cellpadding="0"
-		style="border-collapse: collapse;" bordercolor="#0099FF">
+		cellspacing="0" cellpadding="0" bordercolor="#0099FF">
 			<tr>
 				<td>选择</td>
 				<td>员工号</td>

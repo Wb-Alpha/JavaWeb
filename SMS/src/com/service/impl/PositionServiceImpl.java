@@ -46,7 +46,6 @@ public class PositionServiceImpl implements PositionService{
 
 	@Override
 	public void deletePosition(Integer[] pnoArray) {
-		// TODO Auto-generated method stub
 		for (int i=0; i<pnoArray.length; i++) {
 			positionMapper.initEmployeePosition(pnoArray[i]);
 			positionMapper.deletePosition(pnoArray[i]);

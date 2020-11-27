@@ -29,7 +29,7 @@
 				</tr>
 				<c:forEach items="${positionList}" var="position">
 					<tr>
-						<td><input type="checkbox" name="enoArray"
+						<td><input type="checkbox" name="pnoArray"
 						value="${position.pno}"></td>
 						<td>${position.pno }</td>
 						<td>${position.pname }</td>

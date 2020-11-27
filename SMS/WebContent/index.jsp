@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="${pageContext.request.contextPath}/css/mainFrame.css" type="text/css"
+rel="stylesheet"/>
 <title>薪资管理系统（SMS）</title>
 </head>
 <body>
-	<a href="main">薪资管理系统</a>
+<!-- 	<div id="mainFrame">
+		<p>test</p>
+	</div>
+	<a href="main">薪资管理系统</a> -->
+	<jsp:forward page="/WEB-INF/jsp/login.jsp"/>
 </body>
 </html>

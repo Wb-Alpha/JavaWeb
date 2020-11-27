@@ -23,7 +23,7 @@
 	
 	<insert id="insertEmployee" parameterType="Employee">
 		insert into employee 
-		values(#{eno},#{ename},#{epos},#{esal},#{ebase_sal},#{emar_sal},#{esubsidy});
+		values(#{eno},#{ename},#{epos},#{esal},#{ebase_sal},#{emer_sal},#{esubsidy});
 	</insert>
 	
 	<delete id="deleteEmployeeByEno" parameterType="String">
@@ -52,7 +52,7 @@
 		  	esubsidy=#{esubsidy},
 		  </if>
 		</set>
-		where sno=#{sno};
+		where eno=#{eno};
 	</update>
 	
 </mapper>

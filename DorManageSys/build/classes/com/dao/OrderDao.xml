@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OrderDao">
+    <select id="selectOrderById" parameterType="String" resultType="Order">
+		select * from order_table where orderId=#{id};
+	</select>
+	
+	<insert id="addOrder" parameterType="Order">
+		insert into order_table
+		values(#{id},#{orderTime},#{orderType},#{dorNo},#{creater});
+	</insert>
+	
+	<select id="selectAllOrder" parameterType="Order">
+		select * from order_table;
+	</select>
+	
+	<update id="updateOrder" parameterType="Order">
+		update order_table
+		<set>
+			<if test="orderTime!=null and orderTime!=''">
+				orderTime=#{orderTime},
+			</if>
+			<if test="orderType!=null and orderType!=''">
+				orderType=#{orderType},
+			</if>
+			<if test="dorNo!=null and dorNo!=''">
+				dorNo=#{dorNo},
+			</if>
+			<if test="creater!=null and creater!=''">
+				creater=#{creater},
+			</if>
+		</set>
+		where orderId=#{id};
+	</update>
+	
+	<delete id="deleteOrderById" parameterType="String">
+		delete from order_table where orderId=#{orderId};
+	</delete>
+</mapper>

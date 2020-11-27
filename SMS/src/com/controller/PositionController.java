@@ -35,7 +35,9 @@ public class PositionController {
 	
 	@RequestMapping(value="/positiondelete",method=RequestMethod.POST)
 	public String positionDelete(Integer[] pnoArray) {
-		positionService.deletePosition(pnoArray);
+		if (pnoArray != null) {
+			positionService.deletePosition(pnoArray);
+		}
 		return "redirect:positionlist";
 	}
 	

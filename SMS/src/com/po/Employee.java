@@ -8,7 +8,18 @@ public class Employee {
 	private Integer ebase_sal;
 	private Integer emer_sal;	//绩效工资
 	private Integer esubsidy;
-	
+	public String getEno() {
+		return eno;
+	}
+	public void setEno(String eno) {
+		this.eno = eno;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 	public Integer getEpos() {
 		return epos;
 	}
@@ -39,19 +50,6 @@ public class Employee {
 	public void setEsubsidy(Integer esubsidy) {
 		this.esubsidy = esubsidy;
 	}
-	public String getEno() {
-		return eno;
-	}
-	public void setEno(String eno) {
-		this.eno = eno;
-	}
-	public String getEname() {
-		return ename;
-	}
-	public void setEname(String ename) {
-		this.ename = ename;
-	}
+	
 
-	
-	
 }
