@@ -6,30 +6,36 @@
 	<title>用户登录</title>
 
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" 
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" 
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 	<!-- css -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/login_frame.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/login_detail.css" />
 </head>
 
 <body>
-	<div class="main">
-		<div class="head">
-			<p style="font-size: 32; color: whitesmoke;">叉烧工作室</p>
-		</div>
 
-		<div>
-			${msg}
+	<div class="head">
+		<p style="font-size: 32; color: whitesmoke;">叉烧工作室</p>
+	</div>
+	<div class="main">
+		<img src="${pageContext.request.contextPath }/images/github_256_black.png" alt="github_logo" />
+		<div class="login_pane">
+			<p style="font-size: 28; font-family: Microsoft YaHei;" >薪资管理系统</p>
+			<p>${pageContext.request.contextPath }</p>
+			<%-- ${msg} --%>
 			<form action="${pageContext.request.contextPath }/login" 
 			        method="POST">
-				<p>用户账号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+				<p style="margin-left: -170px ;margin-top: 10px; margin-bottom: -2px;">
+					用户账号
+				</p>
 				<input id="input" type="text" name="id"/><br />
-				<p>密&nbsp;&nbsp;&nbsp;码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-			    <input type="password" name="password"/><br />
-				<input type="submit" value="登录" />
+				<p style="margin-left: -190px ;margin-top: 10px; margin-bottom: -2px;">
+					密&nbsp;&nbsp;&nbsp;码
+				</p>
+			    <input id="input" type="password" name="password"/><br />
+				<input id="submit_button" type="submit" value="登录" />
 			</form>
 		</div>
 	</div>
