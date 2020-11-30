@@ -72,5 +72,13 @@ public class UserServiceImpl implements UserService{
 	public List<User> findUserByName(String name) {
 		return userMapper.selectUserByName(name);
 	}
+
+	@Override
+	public void updateUser(User user, int epos, int emer_sal, int esubsidy) {
+		User user1 = userMapper.selectUserById(user.getId());
+		Employee employee = employeeMapper.selectEmployeeByEno(user.getId());
+		employee.setEname(user.getUsername());
+		
+	}
 	
 }

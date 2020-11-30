@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.po.Employee;
 import com.po.User;
+import com.service.EmployeeService;
 import com.service.UserService;
 
 @Controller
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private EmployeeService employeeService;
 	
 	/**	 
 	 * 向用户登录页面跳转
@@ -29,16 +32,17 @@ public class UserController {
 	 * 用户登录
 	 */
 	@RequestMapping(value="/login")
-	public String login(User user,Model model,HttpSession session) {
+	public String login(User user,Model model,HttpSession session, HttpSession session1) {
 	    // 获取用户名和密码
 	    String userid = user.getId();
 	    String password = user.getPassword();
 	    System.out.println(userid+" "+password);
+	    Employee employee = employeeService.findEmployeeByEno(userid);
 	    User user1 = userService.findUserById(userid);
-	    System.out.println(user1);
 	    if(user1 != null){
 	    	if (user1.getPassword().equals(password)) {
-		     	session.setAttribute("USER_SESSION", user);
+		     	session.setAttribute("USER_SESSION", user1);
+		     	session.setAttribute("EMPLOYEE_SESSION", employee);
 		    	if (user1.getIdentify().equals("admin")) {
 			     	// 重定向到主页面的跳转方法
 			    	return "redirect:toAdmin";
@@ -109,6 +113,11 @@ public class UserController {
 		return "user/userlist";
 	}
 	
+	@RequestMapping("/userInfo")
+	public String userInfo(HttpSession session) {
+		return "user/userInfo";
+	}
+	
 	@RequestMapping(value="/userpreinsert",method=RequestMethod.GET)
 	public String userPreinsert() {
 		return "user/useradd";
@@ -128,4 +137,6 @@ public class UserController {
 		}
 		return "redirect:userlist";
 	}
+	
+
 }

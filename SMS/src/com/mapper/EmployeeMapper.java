@@ -5,7 +5,7 @@ import java.util.List;
 import com.po.Employee;
 
 public interface EmployeeMapper {
-	Employee selectEmployeeBySno(String eno);
+	Employee selectEmployeeByEno(String eno);
 	List<Employee> selectEmployeeBySname(String ename);
 	List<Employee> selectEmployee();
 	void insertEmployee(Employee employee);

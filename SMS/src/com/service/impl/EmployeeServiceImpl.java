@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Employee findEmployeeByEno(String eno) {
 		// TODO Auto-generated method stub
-		return employeeMapper.selectEmployeeBySno(eno);
+		return employeeMapper.selectEmployeeByEno(eno);
 	}
 	
 	@Override
