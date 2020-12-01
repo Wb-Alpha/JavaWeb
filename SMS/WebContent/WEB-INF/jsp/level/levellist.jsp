@@ -22,8 +22,8 @@
 </head>
 <body>
 	<div class="main">
+
 		<div class="sideBar">
-			sidebar
 			<br><br><br><br>
 			<ul class="nav nav-pills nav-stacked">
 				<li role="presentation">
@@ -44,11 +44,23 @@
 			</ul>
 		</div>
 		<div class="mainContainer" style="color:#b8b6b4">
-			<center>等级信息</center>
+			<div class="head">
+				<p style="font-size: 32px; font-family: Microsoft YaHei; float: left; color: #ffffff">&nbsp;&nbsp;薪资管理系统</p>
+				<div class="btn-group" style="margin-top: -50px; margin-left: 1400px;">
+				 	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  	  当前用户: ${USER_SESSION.username }<span class="caret"></span>
+				 	</button>
+				 	<ul class="dropdown-menu">
+				    	<li><a href="${pageContext.request.contextPath }/user_selfupdate">更改用户信息</a></li>
+				   		<li><a href="${pageContext.request.contextPath }/logout">退出登录</a></li>
+				 	</ul>
+				</div>
+			</div>
+			<h1 style="margin-left: 10%; color:#ffffff;">行政等级信息</h1>
+			<hr width="80%" style="text-align: center">
 			<form action="leveldelete" id="form1" name="form1" method="post">
-				<table align="center" width="500" border="1"
-				cellspacing="0" cellpadding="0"
-				style="border-collapse: collapse;" bordercolor="#0099FF">
+				<div style="width:900px; margin-left: 400px ">
+				<table class="table">
 					<tr>
 						<td>选择</td>
 						<td>级别</td>
@@ -74,6 +86,8 @@
 								</tr>
 						</c:forEach>
 				</table>
+				</div>
+				
 			</form>
 		</div>
 	</div>

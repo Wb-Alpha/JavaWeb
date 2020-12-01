@@ -49,20 +49,33 @@
 			</ul>
 		</div>
 		<div class="mainContainer" style="color:#b8b6b4">
-			<div></div>
+			<div class="head">
+				<p style="font-size: 32px; font-family: Microsoft YaHei; float: left; color: #ffffff">&nbsp;&nbsp;薪资管理系统</p>
+				<div class="btn-group" style="margin-top: -80px; margin-left: 1400px;">
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    当前用户: ${USER_SESSION.username }<span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a href="${pageContext.request.contextPath }/user_selfupdate">更改用户信息</a></li>
+				    <li><a href="${pageContext.request.contextPath }/logout">退出登录</a></li>
+				  </ul>
+				</div>
+			</div>
+			<h1 style="margin-left: 10%; color:#ffffff;">用户信息</h1>
+			<hr width="80%" style="text-align: center">
 			<center>用户信息</center>
 			<form action="userdelete" id="form1" name="form1" method="post">
-				<table align="center" width="500" border="1"
-				cellspacing="0" cellpadding="0" bordercolor="#0099FF">
+				<div style="width:900px; margin-left: 400px ">
+					<table align="center" class="table">
 					<tr>
 						<td>选择</td>
 						<td>员工号</td>
 						<td>姓名</td>
 						<td>密码</td>
 						<td>权限</td>
-						<td>操作&nbsp;&nbsp;<a href="userpreinsert">添加</a>
-						&nbsp;&nbsp;<a href="#" onclick="javascript:frmSubmit();">删除</a>
-						&nbsp;&nbsp;<a href="userpresearch">查询</a></td>
+						<td>操作&nbsp;&nbsp;<a class="btn btn-success" href="userpreinsert">添加</a>
+						&nbsp;&nbsp;<a class="btn btn-danger" href="#" onclick="javascript:frmSubmit();">删除</a>
+						&nbsp;&nbsp;<a class="btn btn-warning" href="userpresearch">查询</a></td>
 					</tr>
 					<c:forEach items="${userList}" var="user">
 							<tr>
@@ -73,7 +86,7 @@
 								<td>${user.password }</td>
 								<td>${user.identify }</td>
 								<td>
-									<a
+									<a class="btn btn-default"
 									href="userpreupdate?uid=${user.id}&username=${user.username}&password=${user.password}
 									&identify=${user.identify}">
 									修改
@@ -82,6 +95,7 @@
 								</tr>
 						</c:forEach>
 				</table>
+				</div>
 			</form>
 		</div>
 	</div>
