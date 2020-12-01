@@ -12,6 +12,7 @@
 	<!-- css -->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/main_frame.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/main_detail.css" />
+	
 </head>
 <body>
 	<div class="main">
@@ -63,21 +64,37 @@
 			<img alt="new" src="${pageContext.request.contextPath }/images/mainPic.png" style="width: 100%;" />
 			<br>
 			<div class="funcContainer">
-				<div class="funcPane">
-					<a href="${pageContext.request.contextPath }/userInfo">个人薪资概况</a>
+				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/userInfo'">
+				<span class="glyphicon glyphicon-searchglyphicon glyphicon-btc" aria-hidden="true" style="font-size: 48px"></span><br>个人薪资概况</button>
+				
+				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/userlist'">
+				<span class="glyphicon glyphicon-th-list" aria-hidden="true" style="font-size: 48px"></span><br>管理用户信息</button>
+				
+				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/employeelist'">
+				<span class="glyphicon glyphicon-knight" aria-hidden="true" style="font-size: 48px"></span><br>管理员工信息</button>
+				
+				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/positionlist'">
+				<span class="glyphicon glyphicon-education" aria-hidden="true" style="font-size: 48px"></span><br>管理职位信息</button>
+				
+				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/levellist'">
+				<span class="glyphicon glyphicon-briefcase" aria-hidden="true" style="font-size: 48px"></span><br>管理行政等级信息</button>
+
+<%-- 				<div class="funcPane">
+					<button onclick="window.location.href='${pageContext.request.contextPath}/userInfo'">个人薪资概况</button>
 				</div>
 				<div class="funcPane">
-					<a href="${pageContext.request.contextPath }/positionlist">管理职位信息</a>
+					<button onclick="window.location.href='${pageContext.request.contextPath}/positionlist'">管理职位信息</button>
 				</div>
 				<div class="funcPane">
-					<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a>
+					<button onclick="window.location.href='${pageContext.request.contextPath}/levellist'">管理行政等级信息</button>
 				</div>
 				<div class="funcPane">
-					 <a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a>
+					<button onclick="window.location.href='${pageContext.request.contextPath}/employeelist'">管理员工信息</button>
 				</div>	
 				<div class="funcPane">
-					<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a> 
-				</div>	
+					<button onclick="window.location.href='${pageContext.request.contextPath}/userlist'">管理用户信息</button>
+				</div>	 --%>
+
 			</div>
 		</div>
 	</div>

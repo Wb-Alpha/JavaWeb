@@ -10,3 +10,26 @@
 	font-family: microsoft yahei; 
 	margin-top: 50px;
 }
+
+.funcPaneButton{
+	width: 220px;
+	height:220px;
+	margin-left: 10px;
+	margin-top: 100px;
+	background-color:transparent;
+	border: 2px solid #b8b6b4;
+	font-size: 20px;
+	color: lightgray;
+	text-align: center;
+	border-radius: 5px;
+	
+	transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -webkit-transition: all 0.5s ease 0s;
+}
+
+.funcPaneButton:hover{
+	/* color: #086de1; */
+	border-color: #346bab;
+}

@@ -22,12 +22,12 @@
 	</bean>
 	
 	<!-- <mvc:resources location="/css/" mapping="/css/**"></mvc:resources> -->
- 	<mvc:interceptors>
+<!--  	<mvc:interceptors>
 		<mvc:interceptor>
     		<mvc:mapping path="/**" />
     		<bean class="com.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 	
 	<mvc:resources mapping="/common/**" location="/common/"/>
     <mvc:resources mapping="/css/**" location="/css/"/>

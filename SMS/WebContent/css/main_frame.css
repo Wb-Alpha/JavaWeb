@@ -25,16 +25,8 @@
 .funcContainer{
 	height: 300px;
 	width: 80%;
-	background-color: blue;
+/* 	background-color: blue; */
 	margin-left: 200px;
+/* 	padding-left: 50px; */
 }
 
-.funcPane{ 	
-	height: 200px;
-	width: 200px;
-	margin-left: 30px;
-	margin-top: 100px;
-	float: left;
-	background-color: red;
-	border-radius: 5px;
-}
