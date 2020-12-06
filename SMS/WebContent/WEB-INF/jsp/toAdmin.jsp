@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
      pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,14 +24,23 @@
 					<a href="#">主页</a></li>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/userInfo">个人薪资概况</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/positionlist">管理职位信息</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
+				<c:if test="${USER_SESSION.identify eq 'admin'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
+				</c:if>	
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/positionlist">管理职位信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
+				</c:if>
+			
 				<br><br><br><br><br><br><br><br>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/logout">退出</a></li>
@@ -44,22 +54,12 @@
 				    当前用户: ${USER_SESSION.username }<span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu">
-				    <li><a href="${pageContext.request.contextPath }/user_selfupdate">更改用户信息</a></li>
+				    <li><a href="${pageContext.request.contextPath }/userpre_selfupdate">
+				    更改用户信息</a></li>
 				    <li><a href="${pageContext.request.contextPath }/logout">退出登录</a></li>
 				  </ul>
 				</div>
 			</div>
-			<%-- 用户:${USER_SESSION.username } --%>
-			<!-- <h1 style="margin-left: 5%; color:#ffffff;">主页</h1> -->
-			<!-- <hr style="text-align: center"> -->
-<!-- 			<div class="mainPane">
-				<div class="jumbotron">
-  					<h1>Hello, world!</h1>
- 			 		<p>This is a simple hero unit, a simple
- 			 		 jumbotron-style component for calling extra attention to featured content or information.</p>
- 					<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-				</div>
-			</div> -->
 
 			<img alt="new" src="${pageContext.request.contextPath }/images/mainPic.png" style="width: 100%;" />
 			<br>
@@ -67,34 +67,25 @@
 				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/userInfo'">
 				<span class="glyphicon glyphicon-searchglyphicon glyphicon-btc" aria-hidden="true" style="font-size: 48px"></span><br>个人薪资概况</button>
 				
-				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/userlist'">
-				<span class="glyphicon glyphicon-th-list" aria-hidden="true" style="font-size: 48px"></span><br>管理用户信息</button>
+				<c:if test="${USER_SESSION.identify eq 'admin'}">
+					<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/userlist'">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true" style="font-size: 48px"></span><br>管理用户信息</button>
+				</c:if>
 				
-				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/employeelist'">
-				<span class="glyphicon glyphicon-knight" aria-hidden="true" style="font-size: 48px"></span><br>管理员工信息</button>
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
+					<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/employeelist'">
+					<span class="glyphicon glyphicon-knight" aria-hidden="true" style="font-size: 48px"></span><br>管理员工信息</button>				
+				</c:if>
 				
-				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/positionlist'">
-				<span class="glyphicon glyphicon-education" aria-hidden="true" style="font-size: 48px"></span><br>管理职位信息</button>
-				
-				<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/levellist'">
-				<span class="glyphicon glyphicon-briefcase" aria-hidden="true" style="font-size: 48px"></span><br>管理行政等级信息</button>
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/positionlist'">
+					<span class="glyphicon glyphicon-education" aria-hidden="true" style="font-size: 48px"></span><br>管理职位信息</button>
+				</c:if>
 
-<%-- 				<div class="funcPane">
-					<button onclick="window.location.href='${pageContext.request.contextPath}/userInfo'">个人薪资概况</button>
-				</div>
-				<div class="funcPane">
-					<button onclick="window.location.href='${pageContext.request.contextPath}/positionlist'">管理职位信息</button>
-				</div>
-				<div class="funcPane">
-					<button onclick="window.location.href='${pageContext.request.contextPath}/levellist'">管理行政等级信息</button>
-				</div>
-				<div class="funcPane">
-					<button onclick="window.location.href='${pageContext.request.contextPath}/employeelist'">管理员工信息</button>
-				</div>	
-				<div class="funcPane">
-					<button onclick="window.location.href='${pageContext.request.contextPath}/userlist'">管理用户信息</button>
-				</div>	 --%>
-
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<button class="funcPaneButton" onclick="window.location.href='${pageContext.request.contextPath}/levellist'">
+					<span class="glyphicon glyphicon-briefcase" aria-hidden="true" style="font-size: 48px"></span><br>管理行政等级信息</button>
+				</c:if>
 			</div>
 		</div>
 	</div>

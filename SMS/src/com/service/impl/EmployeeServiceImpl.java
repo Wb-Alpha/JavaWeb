@@ -12,8 +12,8 @@ import com.po.Employee;
 import com.po.Level;
 import com.po.Position;
 import com.po.User;
-import com.random.RandomPassword;
 import com.service.EmployeeService;
+import com.tools.RandomPassword;
 
 @Service
 @Transactional

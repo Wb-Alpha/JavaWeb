@@ -14,8 +14,8 @@ import com.po.Employee;
 import com.po.Level;
 import com.po.Position;
 import com.po.User;
-import com.random.RandomPassword;
 import com.service.UserService;
+import com.tools.RandomPassword;
 
 @Service
 @Transactional
@@ -74,11 +74,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void updateUser(User user, int epos, int emer_sal, int esubsidy) {
-		User user1 = userMapper.selectUserById(user.getId());
-		Employee employee = employeeMapper.selectEmployeeByEno(user.getId());
-		employee.setEname(user.getUsername());
-		
+	public void updateUser(User user) {
+		userMapper.updateUser(user);
 	}
 	
 }

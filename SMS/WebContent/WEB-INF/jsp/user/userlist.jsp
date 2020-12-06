@@ -31,18 +31,26 @@
 		<div class="sideBar">
 			<br><br><br><br>
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" >
-					<a href="${pageContext.request.contextPath }/toAdmin">概况</a></li>
+				<li role="presentation" class="active">
+					<a href="#">主页</a></li>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/userInfo">个人薪资概况</a></li>
-				<li role="presentation" class="active">
-					<a href="#">管理用户信息</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/positionlist">管理职位信息</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
+				<c:if test="${USER_SESSION.identify eq 'admin'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
+				</c:if>	
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/positionlist">管理职位信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
+				</c:if>
 				<br><br><br><br><br><br><br><br>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/logout">退出</a></li>
@@ -56,14 +64,14 @@
 				    当前用户: ${USER_SESSION.username }<span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu">
-				    <li><a href="${pageContext.request.contextPath }/user_selfupdate">更改用户信息</a></li>
+				    <li><a href="${pageContext.request.contextPath }/user_selfupdate?uno= ${USER_SESSION.username}&password= ${USER_SESSION.password }">
+				    	更改用户信息</a></li>
 				    <li><a href="${pageContext.request.contextPath }/logout">退出登录</a></li>
 				  </ul>
 				</div>
 			</div>
 			<h1 style="margin-left: 10%; color:#ffffff;">用户信息</h1>
 			<hr width="80%" style="text-align: center">
-			<center>用户信息</center>
 			<form action="userdelete" id="form1" name="form1" method="post">
 				<div style="width:900px; margin-left: 400px ">
 					<table align="center" class="table">
@@ -73,7 +81,8 @@
 						<td>姓名</td>
 						<td>密码</td>
 						<td>权限</td>
-						<td>操作&nbsp;&nbsp;<a class="btn btn-success" href="userpreinsert">添加</a>
+						<td>操作&nbsp;&nbsp;
+						<a class="btn btn-success" href="userpreinsert">添加</a>
 						&nbsp;&nbsp;<a class="btn btn-danger" href="#" onclick="javascript:frmSubmit();">删除</a>
 						&nbsp;&nbsp;<a class="btn btn-warning" href="userpresearch">查询</a></td>
 					</tr>
@@ -87,8 +96,7 @@
 								<td>${user.identify }</td>
 								<td>
 									<a class="btn btn-default"
-									href="userpreupdate?uid=${user.id}&username=${user.username}&password=${user.password}
-									&identify=${user.identify}">
+									href="userpreupdate?uid=${user.id}&username=${user.username}&identify=${user.identify}">
 									修改
 									</a>
 								</td>

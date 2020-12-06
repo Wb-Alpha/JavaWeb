@@ -20,6 +20,13 @@ public class EmployeeController {
 		return "employee/employeelist";
 	}
 	
+	@RequestMapping(value="/employeelist_hr")
+	public String employeeList_HR(Model model) {
+		List<Employee> list = employeeService.findAllEmployee();
+		model.addAttribute("employeeList", list);
+		return "employee/employeelist_hr";
+	}
+	
 	@RequestMapping(value="/employeepreinsert",method=RequestMethod.GET)
 	public String employeePreinsert() {
 		return "employee/employeeadd";
@@ -62,4 +69,6 @@ public class EmployeeController {
 		employeeService.updateEmployee(employee, identify);
 		return "redirect:employeelist";
 	}
+	
+
 }

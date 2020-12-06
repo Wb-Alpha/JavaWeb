@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SalaryMapper">
+	<select id="selectSalaryByEno" parameterType="String" resultType="Salary">
+		select * from salary where eno=#{eno};
+	</select>
+	
+	<delete id="deleteSalaryByEno" parameterType="String">
+		delete from salary where eno=#{eno};
+	</delete>
+	
+	<insert id="insertSalary" parameterType="Salary">
+		insert into salary(id, eno, data, salary, base_sal, mer_sal, sub) values
+		(#{id}, #{eno}, #{salary}, #{data}, #{base_sal}, #{mer_sal}, #{sub});
+	</insert>
+</mapper>

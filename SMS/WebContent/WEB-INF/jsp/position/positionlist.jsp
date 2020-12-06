@@ -25,18 +25,26 @@
 		<div class="sideBar">
 			<br><br><br><br>
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" >
-					<a href="${pageContext.request.contextPath }/toAdmin">主页</a></li>
+				<li role="presentation" class="active">
+					<a href="#">主页</a></li>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/userInfo">个人薪资概况</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
-				<li role="presentation"  class="active">
-					<a href="#">管理职位信息</a></li>
-				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
+				<c:if test="${USER_SESSION.identify eq 'admin'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
+				</c:if>	
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/positionlist">管理职位信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
+				</c:if>
 				<br><br><br><br><br><br><br><br>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/logout">退出</a></li>

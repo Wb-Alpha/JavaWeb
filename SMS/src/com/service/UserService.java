@@ -10,5 +10,5 @@ public interface UserService {
 	void deleteUser(String[] unoArray);
 	List<User> findAllUser();
 	List<User> findUserByName(String name);
-	void updateUser(User user, int epos, int emer_sal, int esubsidy);
+	void updateUser(User user);
 }
