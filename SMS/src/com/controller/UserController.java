@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.po.Employee;
 import com.po.Position;
+import com.po.Salary;
 import com.po.User;
 import com.service.EmployeeService;
+import com.service.SalaryService;
 import com.service.UserService;
+import com.tools.DateTransformer;
+import com.tools.XMLUtil;
 
 @Controller
 public class UserController {
@@ -20,6 +24,10 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private SalaryService salaryService;
+	
+	String date = XMLUtil.getBean();
 	
 	/**	 
 	 * 向用户登录页面跳转
@@ -44,22 +52,28 @@ public class UserController {
 	    	if (user1.getPassword().equals(password)) {
 		     	session.setAttribute("USER_SESSION", user1);
 		     	session.setAttribute("EMPLOYEE_SESSION", employee);
+		     	List<Salary> list = salaryService.findSalaryByDate(date);
+		     	if (list.size() == 0) {
+		     		List<Employee> emp_list = employeeService.findAllEmployee();	//拿到全体员工列表
+		     		for (Employee emp : emp_list){
+		     			String eno = emp.getEno();	// 提取员工号
+		     			// 为每一位员工新建这一个月的薪资表
+		     			Salary salary = new Salary();
+		     			salary.setId(DateTransformer.toSid(date)+eno);
+		     			salary.setEno(eno);
+		     			salary.setDate(date);
+		     			salary.setSalary(emp.getEbase_sal());
+		     			salary.setBase_sal(emp.getEbase_sal());
+		     			salary.setMer_sal(0);
+		     			salary.setSub(0);
+		     			
+		     			// 为每一位员工初始化他们的薪资表
+		     			employee.setEmer_sal(0);
+		     			employee.setEsubsidy(0);
+		     			employee.setEsal(employee.getEbase_sal());
+		     		}
+		     	}
 		     	return "redirect:toAdmin";
-//		    	if (user1.getIdentify().equals("admin")) {
-//			     	// 重定向到主页面的跳转方法
-//			    	return "redirect:toAdmin";
-//		    	}
-//		    	else if (user1.getIdentify().equals("normal")) {
-//		    		System.out.println("yes");
-//			     	// 重定向到主页面的跳转方法
-//			    	return "redirect:toNormal";
-//		    	}
-//		    	else if (user1.getIdentify().equals("FM")) {
-//		    		return "redirect:toFM";
-//		    	}
-//		    	else if (user1.getIdentify().equals("HR")) {
-//		    		return "redirect:toHR";
-//		    	}
 	    	}
 	    }
 	    System.out.println("用户名或密码错误，请重新登录！");

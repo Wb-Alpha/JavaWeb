@@ -7,13 +7,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mapper.EmployeeMapper;
 import com.mapper.LevelMapper;
 import com.mapper.PositionMapper;
+import com.mapper.SalaryMapper;
 import com.mapper.UserMapper;
 import com.po.Employee;
 import com.po.Level;
 import com.po.Position;
+import com.po.Salary;
 import com.po.User;
 import com.service.EmployeeService;
+import com.tools.DateTransformer;
 import com.tools.RandomPassword;
+import com.tools.XMLUtil;
 
 @Service
 @Transactional
@@ -26,6 +30,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 	private LevelMapper levelMapper;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private SalaryMapper salaryMapper;
 	
 	@Override
 	public Employee findEmployeeByEno(String eno) {
@@ -48,10 +54,23 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employee.setEbase_sal(level.getBase_sal());
 		employee.setEsal(employee.getEbase_sal()+
 				employee.getEmer_sal()+employee.getEsubsidy());
+			
+		//初始化Salary类
+		String date_str = XMLUtil.getBean();
+		Salary salary = new Salary();
+		salary.setId(DateTransformer.toSid(date_str)+employee.getEno());
+		salary.setEno(employee.getEno());
+		salary.setBase_sal(employee.getEbase_sal());
+		salary.setMer_sal(0);
+		salary.setSub(0);
+		salary.setSalary(employee.getEbase_sal());
+		salary.setDate(date_str);
+		System.out.println(salary);
 		
-		// 插入User和Employee
+		// 插入User, Salary和Employee
 		userMapper.insertUser(user);
 		employeeMapper.insertEmployee(employee);
+		salaryMapper.insertSalary(salary);
 	}
 	
 	@Override
@@ -60,6 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		for (int i = 0; i < enoArray.length; i ++){
 			employeeMapper.deleteEmployeeByEno(enoArray[i]);
 			userMapper.deleteUserById(enoArray[i]);
+			salaryMapper.deleteSalaryByEno(enoArray[i]);
 		}
 	}
 	

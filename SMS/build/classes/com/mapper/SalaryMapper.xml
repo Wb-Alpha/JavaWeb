@@ -6,12 +6,16 @@
 		select * from salary where eno=#{eno};
 	</select>
 	
+	<select id="selectSalaryByDate" parameterType="String" resultType="Salary">
+		SELECT * FROM 表名 WHERE DATE_FORMAT(date,'%Y%m') = DATE_FORMAT(#{date}, '%Y%m' )
+	</select>
+	
 	<delete id="deleteSalaryByEno" parameterType="String">
 		delete from salary where eno=#{eno};
 	</delete>
 	
 	<insert id="insertSalary" parameterType="Salary">
-		insert into salary(id, eno, data, salary, base_sal, mer_sal, sub) values
-		(#{id}, #{eno}, #{salary}, #{data}, #{base_sal}, #{mer_sal}, #{sub});
+		insert into salary(id, eno, date, salary, base_sal, mer_sal, sub) values
+		(#{id}, #{eno}, #{date}, #{salary}, #{base_sal}, #{mer_sal}, #{sub});
 	</insert>
 </mapper>
