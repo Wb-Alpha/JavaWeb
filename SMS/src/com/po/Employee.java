@@ -47,9 +47,14 @@ public class Employee {
 	public Integer getEsubsidy() {
 		return esubsidy;
 	}
+
 	public void setEsubsidy(Integer esubsidy) {
 		this.esubsidy = esubsidy;
 	}
 	
-
+	@Override
+	public String toString() {
+		return "Employee [eno=" + eno + ", ename=" + ename + ", epos=" + epos + ", esal=" + esal + ", ebase_sal="
+				+ ebase_sal + ", emer_sal=" + emer_sal + ", esubsidy=" + esubsidy + "]";
+	}
 }

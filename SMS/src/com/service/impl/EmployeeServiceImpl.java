@@ -84,32 +84,59 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 	
 	@Override
-	public void updateEmployee(Employee employee,String identify) {
-		// TODO Auto-generated method stub
+	public void updateEmployee(Employee emp,String identify) {
+		String last_month = DateTransformer.toSid(DateTransformer.lastMonth(XMLUtil.getBean()));
+		String now_month = DateTransformer.toSid(XMLUtil.getBean());
+		Employee employee = employeeMapper.selectEmployeeByEno(emp.getEno());
+		employee.setEpos(emp.getEpos());
 		Position position = positionMapper.selectPositionByPno(employee.getEpos());
 		Level level = levelMapper.selectLevelByLno(position.getPlevel());
 		User user = userMapper.selectUserById(employee.getEno());
+		Salary last_salary = salaryMapper.selectSalaryByEnoAndDate(last_month+employee.getEno());
+		Salary now_salary = salaryMapper.selectSalaryByEnoAndDate(now_month+employee.getEno());
 		
 		user.setUsername(employee.getEname());
-		user.setIdentify(identify);
-
-		employee.setEbase_sal(level.getBase_sal());
+		
+		System.out.println(employee.toString());
+		if (emp.getEbase_sal() != null && emp.getEsubsidy() != null) {
+			employee.setEmer_sal(emp.getEmer_sal());
+			employee.setEsubsidy(emp.getEsubsidy());
+		}
 		employee.setEsal(employee.getEbase_sal()+
 				employee.getEmer_sal()+employee.getEsubsidy());
+
 		
+		// 更新上个月数据
+		last_salary.setMer_sal(employee.getEmer_sal());
+		last_salary.setSub(employee.getEsubsidy());
+		last_salary.setSalary(last_salary.getBase_sal()+last_salary.getMer_sal()+last_salary.getSub());
+		
+		// 更新本月数据
+		now_salary.setBase_sal(level.getBase_sal());
+		now_salary.setSalary(now_salary.getBase_sal());
+		
+//		System.out.println("EmpService  "+employee.toString());
 		userMapper.updateUser(user);
 		employeeMapper.updateEmployee(employee);
+		salaryMapper.updateSalary(last_salary);
+		salaryMapper.updateSalary(now_salary);
 	}
+	
+	
+	
+	@Override
+	public void selfUpdateEmployee(Employee employee) {
+		employeeMapper.updateEmployee(employee);	
+	}	
 	
 	@Override
 	public List<Employee> findAllEmployee() {
-		// TODO Auto-generated method stub
 		return employeeMapper.selectEmployee(); 
 	}
 	
 	@Override
 	public List<Employee> findEmployeeByName(String ename) {
-		// TODO Auto-generated method stub
 		return employeeMapper.selectEmployeeBySname(ename);
 	}
+
 }

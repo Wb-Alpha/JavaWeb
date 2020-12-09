@@ -8,4 +8,6 @@ public interface SalaryMapper {
 	void deleteSalaryByEno(String eno);
 	List<Salary> selectSalaryByEno(String eno);
 	List<Salary> selectSalaryByDate(String date);
+	Salary selectSalaryByEnoAndDate(String id);
+	void updateSalary(Salary salary);
 }

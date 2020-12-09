@@ -42,13 +42,13 @@ public class UserServiceImpl implements UserService{
 	} 
 
 	@Override
-	public void insertUser(User user, int epos, int emer_sal, int esubsidy) {
+	public void insertUser(User user, int epos) {
 		// 初始化Employee类
 		Employee employee = new Employee();
 		employee.setEno(user.getId());
 		employee.setEname(user.getUsername());
-		employee.setEmer_sal(emer_sal);
-		employee.setEsubsidy(esubsidy);
+		employee.setEmer_sal(0);
+		employee.setEsubsidy(0);
 		employee.setEpos(epos);
 		Position position = positionMapper.selectPositionByPno(employee.getEpos());
 		Level level = levelMapper.selectLevelByLno(position.getPlevel());

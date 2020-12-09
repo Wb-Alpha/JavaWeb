@@ -35,6 +35,8 @@ public class EmployeeController {
 	
 	@RequestMapping(value="/employeeinsert", method=RequestMethod.POST)
 	public String employeeInsert(Employee employee, String identify){
+		employee.setEmer_sal(0);
+		employee.setEsubsidy(0);
 		employeeService.addEmployee(employee, identify);
 		return "redirect:employeelist";
 	}

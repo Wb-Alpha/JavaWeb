@@ -20,17 +20,23 @@
 		<div class="sideBar">
 			<br><br><br><br>
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="active">
-					<a href="#">主页</a></li>
+				<li role="presentation">
+					<a href="${pageContext.request.contextPath }/toAdmin">主页</a></li>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/userInfo">个人薪资概况</a></li>
 				<c:if test="${USER_SESSION.identify eq 'admin'}">
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
 				</c:if>	
-				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+					<a href="${pageContext.request.contextPath }/employeelist">管理员工薪资
+					<c:if test="${PREDEAL_SESSION != 0 }"><span class="badge">${PREDEAL_SESSION }</span></c:if>
+					</a></li>
 				</c:if>
 				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">
@@ -64,33 +70,45 @@
 				<form action="employeeupdate" id="form1" name="form1" method="post">
 				<div class="form-group">
 					<table>员工号</table>
-					<input type="text" name="eno" readonly="readonly" id="eno" value="${employee.eno }" class="input_zone">
+					<input type="text" name="eno" readonly="readonly" id="eno" value="${employee.eno }" class="input_zone_freeze">
 				</div>
+				
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 				<div class="form-group">
 					<table>姓名</table>
 					<input type="text" name="ename" id="ename" value="${employee.ename }" class="input_zone">
 				</div>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+				<div class="form-group">
+					<table>姓名</table>
+					<input type="text" name="ename" readonly="readonly" id="ename"  value="${employee.ename }" class="input_zone_freeze">
+				</div>
+				</c:if>
+				
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 				<div class="form-group">
 					<table>职位</table>
-					<input type="text" name="epos" readonly="readonly" id="epos" value="${employee.epos }" class="input_zone">
+					<input type="text" name="epos" id="epos" value="${employee.epos }" class="input_zone">
+				</div></c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<div class="form-group">
+					<table>职位</table>
+					<input type="text" name="epos" readonly="readonly" id="epos" value="${employee.epos }" class="input_zone_freeze">
 				</div>
+				</c:if>
+				
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
 				<div class="form-group">
 					<table>绩效工资</table>
-					<input type="text" name="emer_sal" readonly="readonly" id="emer_sal" value="${employee.emer_sal }" class="input_zone">
+					<input type="text" name="emer_sal" id="emer_sal" value="${employee.emer_sal }" class="input_zone">
 				</div>
 				<div class="form-group">
 					<table>津贴</table>
 					<input type="text" name="esubsidy" id="esubsidy" value="${employee.esubsidy }" class="input_zone">
 				</div>
-				<div class="form-group">
-					<table>用户身份</table>
-					<select name="identify" class="form-control" style="width: 250px">
-						<option value="admin">管理员</option>
-						<option value="HR">人力资源部</option>
-						<option value="FM">财务部</option>
-						<option value="normal">普通用户</option>
-					</select>
-				</div>
+				</c:if>
+				
 				<div class="form-group">
 					<input type="submit" name="button" id="button" value="提交" class="btn btn-success" style="width: 120px; margin-left: 5px;"/>
 			      	<input type="reset" name="button2" id="button2" value="重置" class="btn btn-default" style="width: 120px"/>

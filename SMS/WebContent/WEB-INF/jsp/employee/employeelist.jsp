@@ -25,17 +25,23 @@
 		<div class="sideBar">
 			<br><br><br><br>
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="active">
-					<a href="#">主页</a></li>
+				<li role="presentation">
+					<a href="${pageContext.request.contextPath }/toAdmin">主页</a></li>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/userInfo">个人薪资概况</a></li>
 				<c:if test="${USER_SESSION.identify eq 'admin'}">
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
 				</c:if>	
-				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
-					<li role="presentation">
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+					<li role="presentation" class="active">
 						<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<li role="presentation" class="active">
+					<a href="${pageContext.request.contextPath }/employeelist">管理员工薪资
+					<c:if test="${PREDEAL_SESSION != 0 }"><span class="badge">${PREDEAL_SESSION }</span></c:if>
+					</a></li>
 				</c:if>
 				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">
@@ -70,6 +76,12 @@
 				<div style="width:900px; margin-left: 400px ">
 				<table align="center" class="table">
 					<tr>
+						<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+							<td>选择</td>
+						</c:if>
+						<c:if test="${USER_SESSION.identify eq 'FM'}">
+							<td>状态</td>
+						</c:if>
 						<td>选择</td>
 						<td>员工号</td>
 						<td>姓名</td>
@@ -87,8 +99,17 @@
 						</tr>
 						<c:forEach items="${employeeList}" var="employee">
 							<tr>
-								<td><input type="checkbox" name="enoArray"
-								value="${employee.eno}"></td>
+								<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
+									<td><input type="checkbox" name="enoArray" value="${employee.eno}"></td>
+								</c:if>
+								<c:if test="${USER_SESSION.identify eq 'FM'}">
+									<c:if test="${employee.emer_sal == 0 }">
+										<td><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="font-size: 12px; color:#a94442;"></span></td>
+									</c:if>
+									<c:if test="${employee.emer_sal != 0 }">
+										<td><span class="glyphicon glyphicon-ok" aria-hidden="true" style="font-size: 12px; color:#3c763d;"></span></td>
+									</c:if>
+								</c:if>
 								<td>${employee.eno }</td>
 								<td>${employee.ename }</td>
 								<td>${employee.epos }</td>

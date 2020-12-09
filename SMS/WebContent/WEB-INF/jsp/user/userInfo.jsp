@@ -21,17 +21,23 @@
 		<div class="sideBar">
 			<br><br><br><br>
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="active">
-					<a href="#">主页</a></li>
 				<li role="presentation">
-					<a href="${pageContext.request.contextPath }/userInfo">个人薪资概况</a></li>
+					<a href="${pageContext.request.contextPath }/toAdmin">主页</a></li>
+				<li role="presentation" class="active">
+					<a href="#">个人薪资概况</a></li>
 				<c:if test="${USER_SESSION.identify eq 'admin'}">
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
 				</c:if>	
-				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+					<a href="${pageContext.request.contextPath }/employeelist">管理员工薪资
+					<c:if test="${PREDEAL_SESSION != 0 }"><span class="badge">${PREDEAL_SESSION }</span></c:if>
+					</a></li>
 				</c:if>
 				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">
@@ -86,7 +92,31 @@
 					<p class="smallInfoFont">津贴</p>
 				</div>
 			</div>
+			
+			<div style="width: 80%; margin-left: 10%; color:#b8b6b4;" >
+				<table class="table">
+					<tr>
+						<td>流水号</td>
+						<td>日期</td>
+						<td>总工资</td>
+						<td>基本工资</td>
+						<td>绩效工资</td>
+						<td>津贴</td>
+					</tr>
+					<c:forEach items="${SALARY_SESSION}" var="salary">
+						<tr>
+							<td>${salary.id }</td>
+							<td>${salary.date }</td>
+							<td>${salary.salary }</td>
+							<td>${salary.base_sal }</td>
+							<td>${salary.mer_sal }</td>
+							<td>${salary.sub }</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
+
 	</div>
 </body>
 </html>

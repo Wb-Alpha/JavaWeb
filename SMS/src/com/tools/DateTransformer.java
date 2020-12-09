@@ -1,5 +1,6 @@
 package com.tools;
 
+import java.util.Calendar;
 import java.util.Date;  
 import java.text.ParseException;  
 import java.text.SimpleDateFormat;
@@ -44,6 +45,16 @@ public class DateTransformer {
 		return pre_id;
 	}
 
+	public static String lastMonth(String date) {
+		Date date_type = DateTransformer.StrToDate(date);	// 日期转化
+     	Calendar cal = Calendar.getInstance();	
+     	cal.setTime(date_type);	
+     	cal.add(Calendar.MONTH, -1);	// 倒退一个月
+     	date_type = cal.getTime();		// 日历类转化为date类
+     	String last_month = DateTransformer.DateToStr(date_type);
+		return last_month;
+	}
+	
 	public static void main(String[] args) {  
 		Date date = new Date();  
 		System.out.println("日期转字符串：" + DateTransformer.DateToStr(DateTransformer.StrToDate("2020-11-20")));  

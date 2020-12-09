@@ -1,4 +1,7 @@
 package com.controller;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +19,7 @@ import com.service.EmployeeService;
 import com.service.SalaryService;
 import com.service.UserService;
 import com.tools.DateTransformer;
+import com.tools.TestTools;
 import com.tools.XMLUtil;
 
 @Controller
@@ -50,29 +54,63 @@ public class UserController {
 	    User user1 = userService.findUserById(userid);
 	    if(user1 != null){
 	    	if (user1.getPassword().equals(password)) {
-		     	session.setAttribute("USER_SESSION", user1);
-		     	session.setAttribute("EMPLOYEE_SESSION", employee);
 		     	List<Salary> list = salaryService.findSalaryByDate(date);
+	     		List<Employee> emp_list = employeeService.findAllEmployee();	//拿到全体员工列表
+//	     		TestTools.showList(emp_list);     // 打印全体员工列表的
+	     		
+	     		
+		     	String last_month = DateTransformer.lastMonth(date);
+		     	System.out.println(last_month+" "+list.size());
+		     	List<Salary> list_sal = new ArrayList<Salary>();	// 存储还没有更新薪资的员工
+		     	
 		     	if (list.size() == 0) {
-		     		List<Employee> emp_list = employeeService.findAllEmployee();	//拿到全体员工列表
 		     		for (Employee emp : emp_list){
 		     			String eno = emp.getEno();	// 提取员工号
+//		     			System.out.println(eno);
 		     			// 为每一位员工新建这一个月的薪资表
 		     			Salary salary = new Salary();
 		     			salary.setId(DateTransformer.toSid(date)+eno);
 		     			salary.setEno(eno);
 		     			salary.setDate(date);
 		     			salary.setSalary(emp.getEbase_sal());
-		     			salary.setBase_sal(emp.getEbase_sal());
+		     			salary.setBase_sal(emp.getEbase_sal());    
 		     			salary.setMer_sal(0);
 		     			salary.setSub(0);
+		     			salaryService.addSalary(salary);
 		     			
 		     			// 为每一位员工初始化他们的薪资表
-		     			employee.setEmer_sal(0);
-		     			employee.setEsubsidy(0);
-		     			employee.setEsal(employee.getEbase_sal());
+		     			String sid = DateTransformer.toSid(last_month)+emp.getEno();
+		     			Salary salary_last = salaryService.findSalaryByEnoAndDate(sid);
+		     			if (salary_last != null) {
+		     				Employee temp = emp;
+			     			temp.setEmer_sal(salary_last.getMer_sal());
+			     			temp.setEsubsidy(salary_last.getSub());
+			     			temp.setEbase_sal(salary_last.getBase_sal());
+			     			temp.setEsal(salary_last.getBase_sal()+salary_last.getMer_sal()+salary_last.getSub());
+//			     			System.out.println(temp.toString());
+			     			employeeService.selfUpdateEmployee(temp);
+		     			}
 		     		}
 		     	}
+		     	
+		     	if (user1.getIdentify().equals("FM") || user1.getIdentify().equals("admin")) {			     	
+			     	for (Employee emp : emp_list) {
+//			     		System.out.println(emp.toString());
+			     		String sid = DateTransformer.toSid(last_month)+emp.getEno();
+				     	Salary salary = salaryService.findSalaryByEnoAndDate(sid);
+				     	if (salary != null) {
+				     		if ( salary.getMer_sal()==0 || salary.getSub()==0) {
+				     			list_sal.add(salary);
+				     		}
+				     	}
+			     	}
+			     	session.setAttribute("PREDEAL_SESSION", list_sal.size());
+			     	session.setAttribute("PREDEAL_SALARY_SESSION", list_sal);
+		     	}
+		     	List<Salary> lst = (List<Salary>) session.getAttribute("PREDEAL_SALARY_SESSION");
+//		     	TestTools.showList(lst);
+		     	session.setAttribute("USER_SESSION", user1);
+		     	session.setAttribute("EMPLOYEE_SESSION", employee);
 		     	return "redirect:toAdmin";
 	    	}
 	    }
@@ -143,6 +181,9 @@ public class UserController {
 	// 跳转到个人信息
 	@RequestMapping("/userInfo")
 	public String userInfo(HttpSession session) {
+		User user = (User) session.getAttribute("USER_SESSION");
+     	List<Salary> self_list = salaryService.findSalaryByEno(user.getId());
+     	session.setAttribute("SALARY_SESSION", self_list);
 		return "user/userInfo";
 	}
 	
@@ -154,9 +195,8 @@ public class UserController {
 	
 	//插入新的用户
 	@RequestMapping(value="/userinsert", method=RequestMethod.POST)
-	public String userInsert(User user, int epos, int emer_sal,int esubsidy){
-		System.out.println(epos);
-		userService.insertUser(user, epos, emer_sal, esubsidy);
+	public String userInsert(User user, int epos){
+		userService.insertUser(user, epos);
 		return "redirect:userlist";
 	}
 	

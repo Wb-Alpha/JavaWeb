@@ -31,17 +31,23 @@
 		<div class="sideBar">
 			<br><br><br><br>
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="active">
-					<a href="#">主页</a></li>
+				<li role="presentation">
+					<a href="${pageContext.request.contextPath }/toAdmin">主页</a></li>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/userInfo">个人薪资概况</a></li>
 				<c:if test="${USER_SESSION.identify eq 'admin'}">
-					<li role="presentation">
+					<li role="presentation" class="active">
 						<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
 				</c:if>	
-				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
+				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+					<a href="${pageContext.request.contextPath }/employeelist">管理员工薪资
+					<c:if test="${PREDEAL_SESSION != 0 }"><span class="badge">${PREDEAL_SESSION }</span></c:if>
+					</a></li>
 				</c:if>
 				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">

@@ -28,10 +28,17 @@
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/userlist">管理用户信息</a></li>
 				</c:if>	
-				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR' || USER_SESSION.identify eq 'FM'}">
+				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/employeelist">管理员工信息</a></li>
 				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+					<a href="${pageContext.request.contextPath }/employeelist">管理员工薪资
+					<c:if test="${PREDEAL_SESSION != 0 }"><span class="badge">${PREDEAL_SESSION }</span></c:if>
+					</a></li>
+				</c:if>
+				
 				<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/positionlist">管理职位信息</a></li>

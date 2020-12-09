@@ -42,13 +42,13 @@
 		  <if test="esal!=0">
 		  	esal=#{esal},
 		  </if>
-		  <if test="ebase_sal!=0">
+		  <if test="ebase_sal!=null">
 		  	ebase_sal=#{ebase_sal},
 		  </if>
-		  <if test="esal!=0">
+		  <if test="emer_sal!=null">
 		  	emer_sal=#{emer_sal},
 		  </if>
-		  <if test="esubsidy!=0">
+		  <if test="esubsidy!=null">
 		  	esubsidy=#{esubsidy},
 		  </if>
 		</set>

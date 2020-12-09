@@ -11,4 +11,5 @@ public interface EmployeeService {
 	void addEmployee(Employee employee, String identify);
 	void deleteEmployee(String[] enoArray);
 	void updateEmployee(Employee employee, String identify);
+	void selfUpdateEmployee(Employee employee);
 }

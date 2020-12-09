@@ -41,3 +41,11 @@
 	border-radius: 5px;
  	border: 2px solid #43739b; 
 }
+
+.input_zone_freeze{
+	height: 35px;
+	width: 250px;
+	background-color: #32353c;
+	border-radius: 5px;
+ 	border: 2px solid gray; 
+}

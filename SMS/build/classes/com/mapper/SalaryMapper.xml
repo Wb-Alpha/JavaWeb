@@ -7,7 +7,11 @@
 	</select>
 	
 	<select id="selectSalaryByDate" parameterType="String" resultType="Salary">
-		SELECT * FROM 表名 WHERE DATE_FORMAT(date,'%Y%m') = DATE_FORMAT(#{date}, '%Y%m' )
+		SELECT * FROM salary WHERE DATE_FORMAT(date,'%Y%m') = DATE_FORMAT(#{date}, '%Y%m' )
+	</select>
+	
+	<select id="selectSalaryByEnoAndDate" parameterType="String" resultType="Salary">
+		select * from salary where id=#{id};
 	</select>
 	
 	<delete id="deleteSalaryByEno" parameterType="String">
@@ -18,4 +22,23 @@
 		insert into salary(id, eno, date, salary, base_sal, mer_sal, sub) values
 		(#{id}, #{eno}, #{date}, #{salary}, #{base_sal}, #{mer_sal}, #{sub});
 	</insert>
+	
+	<update id="updateSalary" parameterType="Salary">
+		update salary
+		<set>
+			<if test="salary != null">
+				salary=#{salary},
+			</if>
+			<if test="base_sal != null">
+				base_sal=#{base_sal},
+			</if>
+			<if test="mer_sal != null">
+				mer_sal=#{mer_sal},
+			</if>
+			<if test="sub != null">
+				sub=#{sub}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
 </mapper>
