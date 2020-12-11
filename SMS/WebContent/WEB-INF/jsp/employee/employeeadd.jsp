@@ -81,6 +81,10 @@
 					<input type="text" name="epos" id="epos" class="input_zone"/>
 				</div>
 				<div class="form-group">
+					<label>密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					<input type="text" name="password" id="password" class="input_zone"/>
+				</div>
+				<div class="form-group">
 					<label>用户身份</label>
 					<select name="identify" class="form-control" style="width: 250px">
 						<c:if test="${USER_SESSION.identify eq 'admin'}">

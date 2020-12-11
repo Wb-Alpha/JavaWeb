@@ -6,6 +6,10 @@
 		select * from salary where eno=#{eno};
 	</select>
 	
+	<select id="selectAllSalary" resultType="Salary">
+		select * from salary;
+	</select>
+	
 	<select id="selectSalaryByDate" parameterType="String" resultType="Salary">
 		SELECT * FROM salary WHERE DATE_FORMAT(date,'%Y%m') = DATE_FORMAT(#{date}, '%Y%m' )
 	</select>

@@ -1,6 +1,10 @@
 package com.service.impl;
 import java.util.List;
 import java.util.Random;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,12 +44,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 	
 	@Override
-	public void addEmployee(Employee employee, String identify) {
+	public void addEmployee(Employee employee, String identify, String password) {
 		// 初始化User类
 		User user = new User();
 		user.setId(employee.getEno());
 		user.setUsername(employee.getEname());
-		user.setPassword(RandomPassword.getRandom(10, RandomPassword.TYPE.LETTER_NUMBER));
+//		user.setPassword(RandomPassword.getRandom(10, RandomPassword.TYPE.LETTER_NUMBER));
+		user.setPassword(password);
 		user.setIdentify(identify);
 		
 		// 初始化Employee类
@@ -94,23 +99,26 @@ public class EmployeeServiceImpl implements EmployeeService{
 		User user = userMapper.selectUserById(employee.getEno());
 		Salary last_salary = salaryMapper.selectSalaryByEnoAndDate(last_month+employee.getEno());
 		Salary now_salary = salaryMapper.selectSalaryByEnoAndDate(now_month+employee.getEno());
-		
+		System.out.println(employee.toString());
 		user.setUsername(employee.getEname());
 		
-		System.out.println(employee.toString());
-		if (emp.getEbase_sal() != null && emp.getEsubsidy() != null) {
+//		System.out.println(emp.toString());
+//		System.out.println(emp.getEmer_sal() != null && emp.getEsubsidy() != null);
+
+		if (emp.getEmer_sal() != null && emp.getEsubsidy() != null) {
 			employee.setEmer_sal(emp.getEmer_sal());
 			employee.setEsubsidy(emp.getEsubsidy());
 		}
-		employee.setEsal(employee.getEbase_sal()+
-				employee.getEmer_sal()+employee.getEsubsidy());
-
+		employee.setEsal(employee.getEbase_sal()+employee.getEmer_sal()+employee.getEsubsidy());
+//		System.out.println(employee.toString());
+//		System.out.println(last_salary == null);
 		
 		// 更新上个月数据
 		last_salary.setMer_sal(employee.getEmer_sal());
 		last_salary.setSub(employee.getEsubsidy());
 		last_salary.setSalary(last_salary.getBase_sal()+last_salary.getMer_sal()+last_salary.getSub());
 		
+
 		// 更新本月数据
 		now_salary.setBase_sal(level.getBase_sal());
 		now_salary.setSalary(now_salary.getBase_sal());
@@ -139,4 +147,33 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeMapper.selectEmployeeBySname(ename);
 	}
 
+	@Override
+	public HSSFWorkbook exportToExcal(List<Employee> list) {
+		//创建excel文件
+		HSSFWorkbook wbook=new HSSFWorkbook();
+		//创建sheet页
+		HSSFSheet sheet=wbook.createSheet("工资流水报表");
+		//创建标题行
+		HSSFRow titleRow = sheet.createRow(0);
+		titleRow.createCell(0).setCellValue("员工号");
+		titleRow.createCell(1).setCellValue("员工姓名");
+		titleRow.createCell(2).setCellValue("职位");
+		titleRow.createCell(3).setCellValue("总工资");
+		titleRow.createCell(4).setCellValue("基本工资");
+		titleRow.createCell(5).setCellValue("绩效");
+		titleRow.createCell(6).setCellValue("津贴");		
+
+		//将数据放入excel
+		for (Employee employee:list) {
+		   HSSFRow dataRow=sheet.createRow(sheet.getLastRowNum()+1);
+		   dataRow.createCell(0).setCellValue(employee.getEno());
+		   dataRow.createCell(1).setCellValue(employee.getEname());
+		   dataRow.createCell(2).setCellValue(employee.getEpos());
+		   dataRow.createCell(3).setCellValue(employee.getEsal());
+		   dataRow.createCell(4).setCellValue(employee.getEbase_sal());
+		   dataRow.createCell(5).setCellValue(employee.getEmer_sal());
+		   dataRow.createCell(6).setCellValue(employee.getEsubsidy());
+		}
+		return wbook;
+	}
 }

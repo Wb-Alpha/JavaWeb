@@ -65,6 +65,7 @@
 		<div class="mainContainer" style="color:#b8b6b4">
 			<div class="head">
 				<p style="font-size: 32px; font-family: Microsoft YaHei; float: left; color: #ffffff">&nbsp;&nbsp;薪资管理系统</p>
+				<h4 style=" font-family: Microsoft YaHei; float: left; color: #b8b6b4; margin-left: 1000px">当前时间:${TIME_SESSION}</h4>
 				<div class="btn-group" style="margin-top: -80px; margin-left: 1400px;">
 				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    当前用户: ${USER_SESSION.username }<span class="caret"></span>

@@ -55,11 +55,9 @@ public class DateTransformer {
 		return last_month;
 	}
 	
-	public static void main(String[] args) {  
-		Date date = new Date();  
-		System.out.println("日期转字符串：" + DateTransformer.DateToStr(DateTransformer.StrToDate("2020-11-20")));  
-		System.out.println("字符串转日期：" + DateTransformer.StrToDate("2020-11-20"));  
-	   
-	}  
-
+	public static String getYearAndMon(String date) {
+		String[] str = date.split("-");
+		String result = str[0]+"年 "+str[1]+"月";
+		return result;
+	}
 }  

@@ -50,7 +50,6 @@ public class UserController {
 	    String userid = user.getId();
 	    String password = user.getPassword();
 	    System.out.println(userid+" "+password);
-	    Employee employee = employeeService.findEmployeeByEno(userid);
 	    User user1 = userService.findUserById(userid);
 	    if(user1 != null){
 	    	if (user1.getPassword().equals(password)) {
@@ -81,12 +80,15 @@ public class UserController {
 		     			// 为每一位员工初始化他们的薪资表
 		     			String sid = DateTransformer.toSid(last_month)+emp.getEno();
 		     			Salary salary_last = salaryService.findSalaryByEnoAndDate(sid);
+		     			Salary salary_now = salaryService.findSalaryByEnoAndDate(DateTransformer.toSid(date)+emp.getEno());
 		     			if (salary_last != null) {
 		     				Employee temp = emp;
 			     			temp.setEmer_sal(salary_last.getMer_sal());
 			     			temp.setEsubsidy(salary_last.getSub());
 			     			temp.setEbase_sal(salary_last.getBase_sal());
 			     			temp.setEsal(salary_last.getBase_sal()+salary_last.getMer_sal()+salary_last.getSub());
+			     			System.out.println(temp.getEno()+" "+salary_now.getBase_sal());
+			     			System.out.println(salary_now.toString());
 //			     			System.out.println(temp.toString());
 			     			employeeService.selfUpdateEmployee(temp);
 		     			}
@@ -110,6 +112,16 @@ public class UserController {
 		     	List<Salary> lst = (List<Salary>) session.getAttribute("PREDEAL_SALARY_SESSION");
 //		     	TestTools.showList(lst);
 		     	session.setAttribute("USER_SESSION", user1);
+		     	int num = salaryService.findSalaryByEno(user1.getId()).size();
+		     	System.out.println(num);
+		     	if (num == 1) {
+		     		session.setAttribute("LAST_TIME_SESSION", DateTransformer.getYearAndMon(XMLUtil.getBean()));
+		     	}
+		     	else {
+		     		session.setAttribute("LAST_TIME_SESSION", DateTransformer.getYearAndMon(DateTransformer.lastMonth(XMLUtil.getBean())));
+		     	}
+			    Employee employee = employeeService.findEmployeeByEno(userid);
+		     	session.setAttribute("TIME_SESSION", XMLUtil.getBean());
 		     	session.setAttribute("EMPLOYEE_SESSION", employee);
 		     	return "redirect:toAdmin";
 	    	}
@@ -213,17 +225,17 @@ public class UserController {
 		return "redirect:userlist";
 	}
 	
-	@RequestMapping(value="/userpre_selfupdate",method=RequestMethod.GET)
+	@RequestMapping("/userpre_selfupdate")
 	public String userPreselfupdate(User user,Model model) {
 		model.addAttribute("user", user);
-		System.out.println("prepare");
 		return "user/user_selfupdate";
 	}
 	
 	// 用户修改个人信息
 	@RequestMapping(value="/user_selfupdate", method=RequestMethod.POST)
-	public String userSelfUpdate(User user) {
+	public String userSelfUpdate(User user, HttpSession session) {
 		userService.updateUser(user);
+		session.setAttribute("USER_SESSION", user);
 		return "redirect:toAdmin";
 	}
 	

@@ -47,6 +47,10 @@
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
 				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/salaryrecord">薪资流水记录</a></li>
+				</c:if>
 				<br><br><br><br><br><br><br><br>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/logout">退出</a></li>
@@ -55,6 +59,7 @@
 		<div class="mainContainer">
 			<div class="head">
 				<p style="font-size: 32px; font-family: Microsoft YaHei; color:#ffffff; float: left;">&nbsp;&nbsp;薪资管理系统</p>
+				<h4 style=" font-family: Microsoft YaHei; float: left; color: #b8b6b4; margin-left: 1000px">当前时间:${TIME_SESSION}</h4>
 				<div class="btn-group" style="margin-top: -80px; margin-left: 1400px;">
 					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						当前用户: ${USER_SESSION.username }<span class="caret"></span>
@@ -74,22 +79,25 @@
 				<p style="margin-top: -3px">职位:${EMPLOYEE_SESSION.epos }</p>
 				<p style="margin-top: -3px;">权限:${USER_SESSION.identify }</p>
 			</div>
-			<div class="salaryInfo">
-				<div class="singleInfoPane">
-					<p class="largeInfoFont">${EMPLOYEE_SESSION.esal }</p>
-					<p class="smallInfoFont">总工资</p>
-				</div>
-				<div class="singleInfoPane">
-					<p class="largeInfoFont">${EMPLOYEE_SESSION.ebase_sal }</p>
-					<p class="smallInfoFont">基本工资</p>
-				</div>
-				<div class="singleInfoPane">
-					<p class="largeInfoFont">${EMPLOYEE_SESSION.emer_sal }</p>
-					<p class="smallInfoFont">绩效</p>
-				</div>
-				<div class="singleInfoPane">
-					<p class="largeInfoFont">${EMPLOYEE_SESSION.esubsidy }</p>
-					<p class="smallInfoFont">津贴</p>
+			<div>
+				<div style="margin-top: 95px;margin-left: 400px; font-size: 18px"><p>${LAST_TIME_SESSION }工资情况</p></div>
+				<div class="salaryInfo">
+					<div class="singleInfoPane">
+						<p class="largeInfoFont">${EMPLOYEE_SESSION.esal }</p>
+						<p class="smallInfoFont">总工资</p>
+					</div>
+					<div class="singleInfoPane">
+						<p class="largeInfoFont">${EMPLOYEE_SESSION.ebase_sal }</p>
+						<p class="smallInfoFont">基本工资</p>
+					</div>
+					<div class="singleInfoPane">
+						<p class="largeInfoFont">${EMPLOYEE_SESSION.emer_sal }</p>
+						<p class="smallInfoFont">绩效</p>
+					</div>
+					<div class="singleInfoPane">
+						<p class="largeInfoFont">${EMPLOYEE_SESSION.esubsidy }</p>
+						<p class="smallInfoFont">津贴</p>
+					</div>
 				</div>
 			</div>
 			

@@ -51,6 +51,10 @@
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
 				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/salaryrecord">薪资流水记录</a></li>
+				</c:if>
 				<br><br><br><br><br><br><br><br>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/logout">退出</a></li>
@@ -59,6 +63,7 @@
 		<div class="mainContainer" style="color:#b8b6b4">
 			<div class="head">
 				<p style="font-size: 32px; font-family: Microsoft YaHei; float: left; color: #ffffff">&nbsp;&nbsp;薪资管理系统</p>
+				<h4 style=" font-family: Microsoft YaHei; float: left; color: #b8b6b4; margin-left: 1000px">当前时间:${TIME_SESSION}</h4>
 				<div class="btn-group" style="margin-top: -50px; margin-left: 1400px;">
 				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    当前用户: ${USER_SESSION.username }<span class="caret"></span>
@@ -70,8 +75,12 @@
 				</div>
 			</div>
 			<h1 style="margin-left: 10%; color:#ffffff;">用户信息</h1>
+			<a class="btn btn-success" href="${pageContext.request.contextPath }/exportEmployeeToExcal" style="margin-left: 1200px;margin-top: -40px;">
+				<span class="glyphicon glyphicon-save" aria-hidden="true" style="font-size: 12px">导出</span>
+			</a>
 			<hr width="80%" style="text-align: center">
-			<center>员工信息</center>
+			<c:if test="${USER_SESSION.identify eq 'FM'}"><center>分发${LAST_TIME_SESSION }的工资</center></c:if>
+
 			<form action="employeedelete" id="form1" name="form1" method="post">
 				<div style="width:900px; margin-left: 400px ">
 				<table align="center" class="table">
@@ -82,7 +91,6 @@
 						<c:if test="${USER_SESSION.identify eq 'FM'}">
 							<td>状态</td>
 						</c:if>
-						<td>选择</td>
 						<td>员工号</td>
 						<td>姓名</td>
 						<td>职位</td>
@@ -99,20 +107,21 @@
 						</tr>
 						<c:forEach items="${employeeList}" var="employee">
 							<tr>
+								<td>
 								<c:if test="${USER_SESSION.identify eq 'admin' || USER_SESSION.identify eq 'HR'}">
-									<td><input type="checkbox" name="enoArray" value="${employee.eno}"></td>
+									<input type="checkbox" name="enoArray" value="${employee.eno}">
 								</c:if>
 								<c:if test="${USER_SESSION.identify eq 'FM'}">
 									<c:if test="${employee.emer_sal == 0 }">
-										<td><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="font-size: 12px; color:#a94442;"></span></td>
+										<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="font-size: 12px; color:#a94442;"></span>
 									</c:if>
 									<c:if test="${employee.emer_sal != 0 }">
-										<td><span class="glyphicon glyphicon-ok" aria-hidden="true" style="font-size: 12px; color:#3c763d;"></span></td>
+										<span class="glyphicon glyphicon-ok" aria-hidden="true" style="font-size: 12px; color:#3c763d;"></span>
 									</c:if>
-								</c:if>
+								</c:if></td>
 								<td>${employee.eno }</td>
 								<td>${employee.ename }</td>
-								<td>${employee.epos }</td>
+ 								<td>${employee.epos }</td>
 								<td>${employee.esal }</td>
 								<td>${employee.ebase_sal }</td>
 								<td>${employee.emer_sal }</td>

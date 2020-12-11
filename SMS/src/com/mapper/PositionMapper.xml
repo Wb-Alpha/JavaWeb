@@ -20,7 +20,7 @@
 	</select>
 	
 	<update id="initEmployeePosition" parameterType="Integer">
-		update employee set epos=000001 where epos=#{pno};	
+		update employee set epos=0 where epos=#{pno};	
 	</update>
 	
 	<!-- 一对多地查询职位下有什么员工 -->

@@ -46,6 +46,10 @@
 					<li role="presentation">
 						<a href="${pageContext.request.contextPath }/levellist">管理行政等级信息</a></li>
 				</c:if>
+				<c:if test="${USER_SESSION.identify eq 'FM'}">
+					<li role="presentation">
+						<a href="${pageContext.request.contextPath }/salaryrecord">薪资流水记录</a></li>
+				</c:if>
 				<br><br><br><br><br><br><br><br>
 				<li role="presentation">
 					<a href="${pageContext.request.contextPath }/logout">退出</a></li>
